@@ -3,7 +3,7 @@
 # ==============================================================================
 # Script Versioning & Initialization
 # ==============================================================================
-DOTS_VERSION="1.7.4-4"
+DOTS_VERSION="1.7.5"
 VERSION_FILE="$HOME/.local/state/imperative-dots-version"
 
 # ==============================================================================
@@ -510,51 +510,51 @@ manage_drivers() {
 
 manage_keyboard() {
     local available_layouts=(
-        "us - English (US)" "ca - English/French (Canada)" "ca-multix - Canadian Multilingual"
-        "latam - Spanish (Latin America)" "br - Portuguese (Brazil)" "ar - Arabic (Latin America)"
-        "bo - Bolivia" "cl - Chile" "co - Colombia" "cr - Costa Rica" "cu - Cuba" 
-        "do - Dominican Republic" "ec - Ecuador" "sv - El Salvador" "gt - Guatemala" 
-        "hn - Honduras" "mx - Mexico" "ni - Nicaragua" "pa - Panama" "py - Paraguay" 
-        "pe - Peru" "pr - Puerto Rico" "uy - Uruguay" "ve - Venezuela"
-        "gb - English (UK)" "ie - English (Ireland)" "gd - Scottish Gaelic" "cy-gb - Welsh"
-        "fr - French" "be - Belgian" "ch - Swiss" "de - German" "at - Austrian" 
-        "nl - Dutch" "lu - Luxembourgish" "es - Spanish" "pt - Portuguese" 
-        "it - Italian" "mt - Maltese" "se - Swedish" "no - Norwegian" "dk - Danish" 
-        "fi - Finnish" "is - Icelandic" "fo - Faroese" "gl - Greenlandic"
-        "pl - Polish" "cz - Czech" "sk - Slovak" "hu - Hungarian" 
-        "ad - Andorra" "mc - Monaco" "sm - San Marino" "va - Vatican"
-        "epo - Esperanto" "eu - Basque" "ca-fr - Catalan" 
-        "ru - Russian" "ua - Ukrainian" "by - Belarusian" "ro - Romanian" "bg - Bulgarian" 
-        "rs - Serbian" "hr - Croatian" "si - Slovenian" "mk - Macedonian" "ba - Bosnian" 
-        "me - Montenegrin" "gr - Greek" "cy - Cyprus" "ee - Estonian" "lv - Latvian" 
-        "lt - Lithuanian" "md - Moldovan" "am - Armenian" "ge - Georgian" "az - Azerbaijani" 
-        "kz - Kazakh" "kg - Kyrgyz" "tj - Tajik" "tm - Turkmen" "uz - Uzbek" 
-        "mn - Mongolian" "tat - Tatar" "chu - Chuvash" "os - Ossetian" "udm - Udmurt" 
-        "kbd - Kabardian" "che - Chechen"
-        "au - English (Australia)" "nz - English (New Zealand)" 
-        "cn - Chinese" "jp - Japanese" "kr - Korean" "tw - Taiwanese" "hk - Hong Kong"
-        "in - Indian" "pk - Pakistani" "bd - Bangla" "lk - Sri Lankan" "np - Nepali" 
-        "mv - Maldivian (Dhivehi)" "bt - Bhutanese (Dzongkha)" "af - Afghan (Pashto/Dari)"
-        "th - Thai" "vn - Vietnamese" "la - Lao" "mm - Burmese" "kh - Khmer" 
-        "id - Indonesian" "my - Malay" "ph - Filipino" "sg - Singaporean" 
-        "bn - Bengali" "ta - Tamil" "te - Telugu" "gu - Gujarati" "pa - Punjabi" 
-        "ml - Malayalam" "kn - Kannada" "or - Odia" "as - Assamese" "ur - Urdu"
-        "il - Hebrew" "ara - Arabic" "iq - Iraqi" "sy - Syrian" "ir - Persian (Farsi)"
-        "ma - Moroccan" "dz - Algerian" "eg - Egyptian" "ly - Libyan" "tn - Tunisian" 
-        "sd - Sudanese" "lb - Lebanese" "jo - Jordanian" "ps - Palestinian" 
-        "sa - Saudi Arabian" "kw - Kuwaiti" "bh - Bahraini" "qa - Qatari" "ae - UAE" 
-        "om - Omani" "ye - Yemeni"
-        "za - English (South Africa)" "ng - Nigerian" "et - Ethiopian" "sn - Senegalese"
-        "ke - Kenyan" "tz - Tanzanian" "gh - Ghanaian" "cm - Cameroonian" "ci - Ivorian"
-        "ml - Malian" "gn - Guinean" "cd - Congolese (DRC)" "cg - Congolese (RC)"
-        "rw - Rwandan" "bi - Burundian" "ug - Ugandan" "zm - Zambian" "zw - Zimbabwean"
-        "mw - Malawian" "mz - Mozambican" "ao - Angolan" "na - Namibian" "bw - Motswana"
-        "mg - Malagasy" "so - Somali" "dj - Djiboutian" "er - Eritrean" "tg - Togolese"
-        "bj - Beninese" "bf - Burkinabe" "ne - Nigerien" "td - Chadian" "cf - Central African"
-        "gq - Equatorial Guinean" "ga - Gabonese"
-        "us-intl - US International" "dvorak - US Dvorak" "colemak - US Colemak" 
-        "norman - US Norman" "workman - US Workman" "math - Mathematics" "brai - Braille"
-    )
+        "us - English (US)" "ca - English/French (Canada)" "ca-multix - Canadian Multilingual"
+        "latam - Spanish (Latin America)" "br - Portuguese (Brazil)" "ar - Arabic (Latin America)"
+        "bo - Bolivia" "cl - Chile" "co - Colombia" "cr - Costa Rica" "cu - Cuba" 
+        "do - Dominican Republic" "ec - Ecuador" "sv - El Salvador" "gt - Guatemala" 
+        "hn - Honduras" "mx - Mexico" "ni - Nicaragua" "pa - Panama" "py - Paraguay" 
+        "pe - Peru" "pr - Puerto Rico" "uy - Uruguay" "ve - Venezuela"
+        "gb - English (UK)" "ie - English (Ireland)" "gd - Scottish Gaelic" "cy-gb - Welsh"
+        "fr - French" "be - Belgian" "ch - Swiss" "de - German" "at - Austrian" 
+        "nl - Dutch" "lu - Luxembourgish" "es - Spanish" "pt - Portuguese" 
+        "it - Italian" "mt - Maltese" "se - Swedish" "no - Norwegian" "dk - Danish" 
+        "fi - Finnish" "is - Icelandic" "fo - Faroese" "gl - Greenlandic"
+        "pl - Polish" "cz - Czech" "sk - Slovak" "hu - Hungarian" 
+        "ad - Andorra" "mc - Monaco" "sm - San Marino" "va - Vatican"
+        "epo - Esperanto" "eu - Basque" "ca-fr - Catalan" 
+        "ru - Russian" "ua - Ukrainian" "by - Belarusian" "ro - Romanian" "bg - Bulgarian" 
+        "rs - Serbian" "hr - Croatian" "si - Slovenian" "mk - Macedonian" "ba - Bosnian" 
+        "me - Montenegrin" "gr - Greek" "cy - Cyprus" "ee - Estonian" "lv - Latvian" 
+        "lt - Lithuanian" "md - Moldovan" "am - Armenian" "ge - Georgian" "az - Azerbaijani" 
+        "kz - Kazakh" "kg - Kyrgyz" "tj - Tajik" "tm - Turkmen" "uz - Uzbek" 
+        "mn - Mongolian" "tat - Tatar" "chu - Chuvash" "os - Ossetian" "udm - Udmurt" 
+        "kbd - Kabardian" "che - Chechen" "tr - Turkish"
+        "au - English (Australia)" "nz - English (New Zealand)" 
+        "cn - Chinese" "jp - Japanese" "kr - Korean" "tw - Taiwanese" "hk - Hong Kong"
+        "in - Indian" "pk - Pakistani" "bd - Bangla" "lk - Sri Lankan" "np - Nepali" 
+        "mv - Maldivian (Dhivehi)" "bt - Bhutanese (Dzongkha)" "af - Afghan (Pashto/Dari)"
+        "th - Thai" "vn - Vietnamese" "la - Lao" "mm - Burmese" "kh - Khmer" 
+        "id - Indonesian" "my - Malay" "ph - Filipino" "sg - Singaporean" 
+        "bn - Bengali" "ta - Tamil" "te - Telugu" "gu - Gujarati" "pa - Punjabi" 
+        "ml - Malayalam" "kn - Kannada" "or - Odia" "as - Assamese" "ur - Urdu"
+        "il - Hebrew" "ara - Arabic" "iq - Iraqi" "sy - Syrian" "ir - Persian (Farsi)"
+        "ma - Moroccan" "dz - Algerian" "eg - Egyptian" "ly - Libyan" "tn - Tunisian" 
+        "sd - Sudanese" "lb - Lebanese" "jo - Jordanian" "ps - Palestinian" 
+        "sa - Saudi Arabian" "kw - Kuwaiti" "bh - Bahraini" "qa - Qatari" "ae - UAE" 
+        "om - Omani" "ye - Yemeni"
+        "za - English (South Africa)" "ng - Nigerian" "et - Ethiopian" "sn - Senegalese"
+        "ke - Kenyan" "tz - Tanzanian" "gh - Ghanaian" "cm - Cameroonian" "ci - Ivorian"
+        "ml - Malian" "gn - Guinean" "cd - Congolese (DRC)" "cg - Congolese (RC)"
+        "rw - Rwandan" "bi - Burundian" "ug - Ugandan" "zm - Zambian" "zw - Zimbabwean"
+        "mw - Malawian" "mz - Mozambican" "ao - Angolan" "na - Namibian" "bw - Motswana"
+        "mg - Malagasy" "so - Somali" "dj - Djiboutian" "er - Eritrean" "tg - Togolese"
+        "bj - Beninese" "bf - Burkinabe" "ne - Nigerien" "td - Chadian" "cf - Central African"
+        "gq - Equatorial Guinean" "ga - Gabonese"
+        "us-intl - US International" "dvorak - US Dvorak" "colemak - US Colemak" 
+        "norman - US Norman" "workman - US Workman" "math - Mathematics" "brai - Braille"
+    )
     
     local selected_codes=()
     local selected_names=()
@@ -1379,6 +1379,11 @@ elif [ "$OLD_COMMIT" == "$NEW_COMMIT" ] && [ -n "$OLD_COMMIT" ]; then
     echo -e "  -> Repository is up to date (${C_YELLOW}${NEW_COMMIT::7}${RESET}). Only applying upstream changes (None found)."
 fi
 
+if [ -f "$TARGET_CONFIG_DIR/hypr/settings.json" ]; then
+    mkdir -p "$BACKUP_DIR/hypr"
+    cp "$TARGET_CONFIG_DIR/hypr/settings.json" "$BACKUP_DIR/hypr/settings.json"
+fi
+
 if [ "$DO_FULL_INSTALL" = true ]; then
     echo "  -> Performing Full Install / Overwrite..."
 
@@ -1474,12 +1479,6 @@ else
         echo "  -> No target config files were changed upstream. Local files kept intact."
     fi
     
-    # We must explicitly stage the current settings.json into the backup dir 
-    # so the SSoT JSON merge logic later in the script can find and read it
-    if [ -f "$TARGET_CONFIG_DIR/hypr/settings.json" ]; then
-        mkdir -p "$BACKUP_DIR/hypr"
-        cp "$TARGET_CONFIG_DIR/hypr/settings.json" "$BACKUP_DIR/hypr/settings.json"
-    fi
 fi
 
 # --- 4.5 Bake Hardware Variables into Template ---

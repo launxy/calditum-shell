@@ -1,3 +1,4 @@
+
 import QtQuick
 import QtQuick.Window
 import QtQuick.Effects
@@ -729,7 +730,8 @@ Item {
         ListElement { code: "os"; name: "Ossetian" }
         ListElement { code: "udm"; name: "Udmurt" }
         ListElement { code: "kbd"; name: "Kabardian" }
-        ListElement { code: "che"; name: "Chechen" }
+	ListElement { code: "che"; name: "Chechen" }
+	ListElement { code: "tr"; name: "Turkish" }
 
         // --- Asia & Pacific ---
         ListElement { code: "au"; name: "English (Australia)" }
@@ -3668,3 +3670,4 @@ Item {
         }
     }
 }
+
