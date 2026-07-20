@@ -1,5 +1,5 @@
 
-# This is a fork of a shell I liked, support the original creator "ilyamori".
+# This is a fork of a shell I liked, support the original creator "ilyamiro".
 ###  STILL WORK IN PROGRESS
 
 
