@@ -14,7 +14,6 @@
 
 ---
 
-> ⚠️ Este instalador envía telemetría anónima y no identificable que me ayuda a depurar problemas y llevar un conteo del número de usuarios.
 
 ## 🎨 Wallpapers
 
