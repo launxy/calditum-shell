@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="Logo" width="150"/>
+  <img src="src/logo.png" alt="Logo" width="150"/>
 </p>
 
 <h1 align="center">Calditum Shell</h1>
