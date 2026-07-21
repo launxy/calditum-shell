@@ -1,28 +1,35 @@
+<p align="center">
+  <img src="logo.png" alt="Logo" width="150"/>
+</p>
 
-# This is a fork of a shell I liked, support the original creator "ilyamiro".
-###  STILL WORK IN PROGRESS
+<h1 align="center">Calditum Shell</h1>
 
+<p align="center">
+  Un fork del shell original creado por <a href="https://github.com/ilyamiro">ilyamiro</a>.
+</p>
 
-## Do NOT install it on NixOS. This config has a lot adapting to do, until I introduce flakes.
-## you will have to wait for this 
-
-
-
-
-> [!WARNING]
-> DO NOT LAUNCH THIS AS ROOT!
-
-> [!NOTE]
-> This installer sends anonymous non-identifying telemetry that helps me debug problems and track the amount of users
-
-### You can find all of my wallpapers **[HERE](https://github.com/ilyamiro/shell-wallpapers)**.
-
-## Previews of my desktop
+<p align="center">
+  <strong>🚧 STILL WORK IN PROGRESS 🚧</strong>
+</p>
 
 ---
 
-![preview1](previews/screenshot1.png)
-![preview2](previews/screenshot2.png)
-![preview3](previews/screenshot3.png)
+> ⚠️ Este instalador envía telemetría anónima y no identificable que me ayuda a depurar problemas y llevar un conteo del número de usuarios.
 
+## 🎨 Wallpapers
 
+Puedes encontrar todos mis wallpapers **[aquí](https://github.com/ilyamiro/shell-wallpapers)**.
+
+## 🖥️ Vista previa del escritorio
+
+<p align="center">
+  <img src="previews/screenshot1.png" width="30%"/>
+  <img src="previews/screenshot2.png" width="30%"/>
+  <img src="previews/screenshot3.png" width="30%"/>
+</p>
+
+---
+
+<p align="center">
+  Basado en el trabajo original de <a href="https://github.com/ilyamiro">ilyamiro</a> — todo el crédito por el diseño original le pertenece.
+</p>
