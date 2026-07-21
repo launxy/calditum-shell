@@ -15,9 +15,6 @@
 ---
 
 
-## 🎨 Wallpapers
-
-Puedes encontrar todos mis wallpapers **[aquí](https://github.com/ilyamiro/shell-wallpapers)**.
 
 ## 🖥️ Vista previa del escritorio
 
