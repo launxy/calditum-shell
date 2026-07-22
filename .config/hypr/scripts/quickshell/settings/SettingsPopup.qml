@@ -124,7 +124,7 @@ Item {
     }
 
     function maxHighlightForTab(tab) {
-        if (tab === 0) return 6;
+        if (tab === 0) return 7;
         if (tab === 1) return 3;
         if (tab === 2) return dynamicKeybindsModel.count - 1;
         if (tab === 4) return dynamicStartupModel.count - 1;
@@ -145,6 +145,8 @@ Item {
             } else if (root.highlightedBox === 5) {
                 if (generalLoader.item) generalLoader.item.focusWpDirInput();
             } else if (root.highlightedBox === 6) {
+            } else if (root.highlightedBox === 7) {
+                if (generalLoader.item) generalLoader.item.focusFontInput();
             }
         } else if (root.currentTab === 1) {
             if (root.highlightedBox === 0) {
@@ -888,6 +890,7 @@ Item {
         { tab: 0, boxIndex: 4, label: "Layout shortcut",   desc: "Toggle combination",     icon: "󰯍", color: "teal" },
         { tab: 0, boxIndex: 5, label: "Wallpaper directory",desc: "Absolute source path",  icon: "󰋩", color: "mauve" },
         { tab: 0, boxIndex: 6, label: "Workspaces",        desc: "Static count in topbar", icon: "󰽿", color: "red" },
+        { tab: 0, boxIndex: 7, label: "System font",       desc: "Font used across Quickshell", icon: "Aa", color: "yellow" },
         { tab: 1, boxIndex: 1, label: "API Key",           desc: "OpenWeather API key",    icon: "󰌆", color: "blue" },
         { tab: 1, boxIndex: 2, label: "City ID",           desc: "OpenWeather city ID",    icon: "󰖐", color: "blue" },
         { tab: 1, boxIndex: 3, label: "Temperature Unit",  desc: "Celsius / Fahrenheit / K", icon: "󰔄", color: "blue" }
@@ -1066,6 +1069,7 @@ Item {
 
             function focusLangInput() { langInput.forceActiveFocus(); }
             function focusWpDirInput() { wpDirInput.forceActiveFocus(); }
+            function focusFontInput() { fontNameInput.forceActiveFocus(); }
             function layoutListIncrementIndex() { layoutListView.incrementCurrentIndex(); }
             function layoutListDecrementIndex() { layoutListView.decrementCurrentIndex(); }
             function acceptLayoutSelection() {
@@ -1311,7 +1315,7 @@ Item {
                                         Behavior on color { ColorAnimation { duration: 200 } }
                                         Text {
                                             anchors.centerIn: parent; text: "-"
-                                            font.family: "JetBrains Mono"; font.weight: Font.Medium; font.pixelSize: root.s(15)
+                                            font.family: "Liberation Sans"; font.weight: Font.Medium; font.pixelSize: root.s(15)
                                             color: box2.isActive ? root.base : root.sapphire
                                             Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                         }
@@ -1319,7 +1323,7 @@ Item {
                                     }
                                     Text { 
                                         text: Config.uiScale.toFixed(1) + "x"
-                                        font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(13)
+                                        font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(13)
                                         color: box2.isActive ? root.base : root.sapphire
                                         Layout.minimumWidth: root.s(36); horizontalAlignment: Text.AlignHCenter
                                         Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
@@ -1334,7 +1338,7 @@ Item {
                                         Behavior on color { ColorAnimation { duration: 200 } }
                                         Text {
                                             anchors.centerIn: parent; text: "+"
-                                            font.family: "JetBrains Mono"; font.weight: Font.Medium; font.pixelSize: root.s(15)
+                                            font.family: "Liberation Sans"; font.weight: Font.Medium; font.pixelSize: root.s(15)
                                             color: box2.isActive ? root.base : root.sapphire
                                             Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                         }
@@ -1402,12 +1406,12 @@ Item {
                                                 RowLayout {
                                                     id: langChipLayout; anchors.centerIn: parent; spacing: root.s(6)
                                                     Text {
-                                                        text: modelData; font.family: "JetBrains Mono"; font.weight: Font.Medium; font.pixelSize: root.s(11)
+                                                        text: modelData; font.family: "Liberation Sans"; font.weight: Font.Medium; font.pixelSize: root.s(11)
                                                         color: chipMa.containsMouse ? root.red : (box3.isActive ? root.base : root.text)
                                                         Behavior on color { ColorAnimation { duration: 150 } }
                                                     }
                                                     Text {
-                                                        text: "✖"; font.family: "JetBrains Mono"; font.pixelSize: root.s(11)
+                                                        text: "✖"; font.family: "Liberation Sans"; font.pixelSize: root.s(11)
                                                         color: chipMa.containsMouse ? root.red : (box3.isActive ? Qt.alpha(root.base, 0.6) : root.subtext0)
                                                         Behavior on color { ColorAnimation { duration: 150 } }
                                                     }
@@ -1439,7 +1443,7 @@ Item {
                                     id: langInput
                                     anchors.fill: parent; anchors.margins: root.s(9)
                                     verticalAlignment: TextInput.AlignVCenter
-                                    font.family: "JetBrains Mono"; font.pixelSize: root.s(11)
+                                    font.family: "Liberation Sans"; font.pixelSize: root.s(11)
                                     color: box3.isActive ? root.base : root.text; clip: true; selectByMouse: true
                                     Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                     Keys.onPressed: (event) => {
@@ -1496,7 +1500,7 @@ Item {
                                         Behavior on color { ColorAnimation { duration: 150 } }
                                         RowLayout {
                                             anchors.fill: parent; anchors.leftMargin: root.s(8); anchors.rightMargin: root.s(8); spacing: root.s(8)
-                                            Text { text: model.code; font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(11); color: box3.isActive ? root.base : root.text; Behavior on color { ColorAnimation { duration: 150 } } }
+                                            Text { text: model.code; font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(11); color: box3.isActive ? root.base : root.text; Behavior on color { ColorAnimation { duration: 150 } } }
                                             Text { text: model.name; font.family: "Inter"; font.pixelSize: root.s(11); color: box3.isActive ? Qt.alpha(root.base, 0.7) : Qt.alpha(root.subtext0, 0.7); elide: Text.ElideRight; Layout.fillWidth: true; Behavior on color { ColorAnimation { duration: 150 } } }
                                         }
                                         MouseArea {
@@ -1569,7 +1573,7 @@ Item {
                                             anchors.fill: parent; anchors.margins: root.s(9)
                                             Text {
                                                 text: root.getKbToggleLabel(Config.kbOptions)
-                                                font.family: "JetBrains Mono"; font.pixelSize: root.s(11)
+                                                font.family: "Liberation Sans"; font.pixelSize: root.s(11)
                                                 color: box4.isActive ? root.base : root.text; Layout.fillWidth: true
                                                 Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                             }
@@ -1618,7 +1622,7 @@ Item {
                                                 RowLayout {
                                                     anchors.fill: parent; anchors.leftMargin: root.s(8); anchors.rightMargin: root.s(8)
                                                     Text {
-                                                        text: modelData.label; font.family: "JetBrains Mono"; font.pixelSize: root.s(11)
+                                                        text: modelData.label; font.family: "Liberation Sans"; font.pixelSize: root.s(11)
                                                         color: Config.kbOptions === modelData.val
                                                             ? (box4.isActive ? root.base : root.teal)
                                                             : (box4.isActive ? Qt.alpha(root.base, 0.8) : root.text)
@@ -1691,7 +1695,7 @@ Item {
                                             anchors.fill: parent; anchors.margins: root.s(9)
                                             verticalAlignment: TextInput.AlignVCenter
                                             text: Config.wallpaperDir
-                                            font.family: "JetBrains Mono"; font.pixelSize: root.s(11)
+                                            font.family: "Liberation Sans"; font.pixelSize: root.s(11)
                                             color: box5.isActive ? root.base : root.text; clip: true; selectByMouse: true
                                             Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                             Keys.onPressed: (event) => {
@@ -1749,7 +1753,7 @@ Item {
                                                 Behavior on color { ColorAnimation { duration: 150 } }
                                                 Text {
                                                     anchors.verticalCenter: parent.verticalCenter; x: root.s(8)
-                                                    text: model.path; font.family: "JetBrains Mono"; font.pixelSize: root.s(10)
+                                                    text: model.path; font.family: "Liberation Sans"; font.pixelSize: root.s(10)
                                                     color: box5.isActive ? root.base : root.text
                                                     elide: Text.ElideMiddle; width: parent.width - root.s(16)
                                                     Behavior on color { ColorAnimation { duration: 150 } }
@@ -1814,7 +1818,7 @@ Item {
                                         Behavior on color { ColorAnimation { duration: 200 } }
                                         Text {
                                             anchors.centerIn: parent; text: "-"
-                                            font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(15)
+                                            font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(15)
                                             color: box6.isActive ? root.base : root.red
                                             Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                         }
@@ -1822,7 +1826,7 @@ Item {
                                     }
                                     Text { 
                                         text: Config.workspaceCount.toString()
-                                        font.family: "JetBrains Mono"; font.weight: Font.Black; font.pixelSize: root.s(14)
+                                        font.family: "Liberation Sans"; font.weight: Font.Black; font.pixelSize: root.s(14)
                                         color: box6.isActive ? root.base : root.red
                                         Layout.minimumWidth: root.s(36); horizontalAlignment: Text.AlignHCenter
                                         Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
@@ -1835,11 +1839,167 @@ Item {
                                         Behavior on color { ColorAnimation { duration: 200 } }
                                         Text {
                                             anchors.centerIn: parent; text: "+"
-                                            font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(15)
+                                            font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(15)
                                             color: box6.isActive ? root.base : root.red
                                             Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                         }
                                         MouseArea { id: wsPlusMa; anchors.fill: parent; hoverEnabled: true; onClicked: Config.workspaceCount = Math.min(10, Config.workspaceCount + 1) }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // ── Box 7: System font ───────────────────────────────────
+                    Rectangle {
+                        id: box7
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: col7font.implicitHeight + root.s(32)
+                        radius: root.s(12)
+
+                        property bool isActive: root.highlightedBox === 7
+                        color: isActive ? root.yellow : root.surface0
+                        border.color: isActive ? root.yellow : root.surface1
+                        border.width: 1
+                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+
+                        MouseArea { anchors.fill: parent; onClicked: root.highlightedBox = 7; z: -1 }
+
+                        property string qsDir: Quickshell.env("HOME") + "/.config/hypr/scripts/quickshell/"
+                        property string currentSystemFont: "Liberation Sans"
+                        property string applyStatus: ""
+
+                        function escSedPattern(s) { return s.replace(/[.*[\]^$\/\\]/g, "\\$&"); }
+                        function escSedReplacement(s) { return s.replace(/[\/&\\]/g, "\\$&"); }
+
+                        function applyFont() {
+                            let newFont = fontNameInput.text.trim();
+                            if (newFont.length === 0 || newFont === box7.currentSystemFont || box7.applyStatus === "applying") return;
+                            let oldEsc = box7.escSedPattern(box7.currentSystemFont);
+                            let newEsc = box7.escSedReplacement(newFont);
+                            let cmd = "find '" + box7.qsDir + "' -type f -name '*.qml' -print0 | xargs -0 sed -i 's/font\\.family: \"" + oldEsc + "\"/font.family: \"" + newEsc + "\"/g'";
+                            fontApplyProc.newFontValue = newFont;
+                            box7.applyStatus = "applying";
+                            fontApplyProc.command = ["bash", "-c", cmd];
+                            fontApplyProc.running = false;
+                            fontApplyProc.running = true;
+                        }
+
+                        Component.onCompleted: {
+                            fontDetectProc.running = true;
+                        }
+
+                        Process {
+                            id: fontDetectProc
+                            command: ["bash", "-c", "grep -rhoP 'font\\.family:\\s*\"\\K[^\"]+' '" + box7.qsDir + "' --include='*.qml' 2>/dev/null | grep -vE '^(Inter|.*Nerd Font.*)$' | sort | uniq -c | sort -rn | head -n1 | sed -E 's/^[[:space:]]*[0-9]+[[:space:]]*//'"]
+                            stdout: StdioCollector {
+                                onStreamFinished: {
+                                    let val = this.text ? this.text.trim() : "";
+                                    if (val.length > 0) {
+                                        box7.currentSystemFont = val;
+                                        if (!fontNameInput.activeFocus) fontNameInput.text = val;
+                                    }
+                                }
+                            }
+                        }
+
+                        Process {
+                            id: fontApplyProc
+                            property string newFontValue: ""
+                            stdout: StdioCollector {
+                                onStreamFinished: {
+                                    box7.currentSystemFont = fontApplyProc.newFontValue;
+                                    box7.applyStatus = "done";
+                                    Quickshell.execDetached(["notify-send", "Ajustes", "Fuente cambiada a " + fontApplyProc.newFontValue]);
+                                    statusResetTimer.restart();
+                                    reloadDelayTimer.restart();
+                                }
+                            }
+                        }
+
+                        Timer { id: statusResetTimer; interval: 2200; onTriggered: box7.applyStatus = "" }
+                        Timer { id: reloadDelayTimer; interval: 400; onTriggered: Quickshell.reload(true) }
+
+                        ColumnLayout {
+                            id: col7font
+                            anchors.top: parent.top; anchors.left: parent.left; anchors.right: parent.right; anchors.margins: root.s(16)
+                            RowLayout {
+                                Layout.fillWidth: true; spacing: root.s(14)
+                                Item {
+                                    Layout.preferredWidth: root.s(22); Layout.alignment: Qt.AlignTop; Layout.topMargin: root.s(2)
+                                    Text {
+                                        anchors.top: parent.top; anchors.horizontalCenter: parent.horizontalCenter
+                                        text: "Aa"; font.family: "Inter"; font.weight: Font.Bold; font.pixelSize: root.s(14)
+                                        color: box7.isActive ? root.base : root.yellow
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                }
+                                ColumnLayout {
+                                    Layout.fillWidth: true; Layout.alignment: Qt.AlignTop; spacing: root.s(3)
+                                    Text {
+                                        text: "System font"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(14)
+                                        color: box7.isActive ? root.base : root.text; Layout.fillWidth: true
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                    Text {
+                                        text: "Applies to all Quickshell QML files"; font.family: "Inter"; font.pixelSize: root.s(11)
+                                        color: box7.isActive ? Qt.alpha(root.base, 0.75) : Qt.alpha(root.subtext0, 0.7); Layout.fillWidth: true
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                    RowLayout {
+                                        Layout.fillWidth: true; Layout.topMargin: root.s(8); spacing: root.s(8)
+                                        Rectangle {
+                                            Layout.fillWidth: true; Layout.preferredHeight: root.s(34)
+                                            radius: root.s(7)
+                                            color: box7.isActive ? Qt.alpha(root.base, 0.15) : root.surface0
+                                            border.color: fontNameInput.activeFocus
+                                                ? (box7.isActive ? root.base : root.yellow)
+                                                : (box7.isActive ? Qt.alpha(root.base, 0.3) : root.surface2)
+                                            border.width: 1
+                                            Behavior on border.color { ColorAnimation { duration: 200 } }
+                                            Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                            TextInput {
+                                                id: fontNameInput
+                                                anchors.fill: parent; anchors.margins: root.s(9)
+                                                verticalAlignment: TextInput.AlignVCenter
+                                                text: box7.currentSystemFont
+                                                font.family: "Liberation Sans"; font.pixelSize: root.s(11)
+                                                color: box7.isActive ? root.base : root.text; clip: true; selectByMouse: true
+                                                Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                                Keys.onReturnPressed: (event) => { box7.applyFont(); event.accepted = true; }
+                                                Keys.onEnterPressed: (event) => { box7.applyFont(); event.accepted = true; }
+                                                Text {
+                                                    text: "Font name..."; color: box7.isActive ? Qt.alpha(root.base, 0.5) : root.subtext0
+                                                    visible: !parent.text && !parent.activeFocus; font: parent.font; anchors.verticalCenter: parent.verticalCenter
+                                                }
+                                            }
+                                        }
+                                        Rectangle {
+                                            Layout.preferredWidth: root.s(72); Layout.preferredHeight: root.s(34)
+                                            radius: root.s(7)
+                                            color: applyMa.containsPress
+                                                ? Qt.alpha(box7.isActive ? root.base : root.yellow, 0.7)
+                                                : (box7.isActive ? Qt.alpha(root.base, applyMa.containsMouse ? 0.3 : 0.2) : Qt.alpha(root.yellow, applyMa.containsMouse ? 1.0 : 0.85))
+                                            border.color: box7.isActive ? root.base : root.yellow
+                                            border.width: 1
+                                            Behavior on color { ColorAnimation { duration: 150 } }
+                                            Text {
+                                                anchors.centerIn: parent
+                                                text: box7.applyStatus === "applying" ? "…" : (box7.applyStatus === "done" ? "✓" : "Apply")
+                                                font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(11)
+                                                color: box7.isActive ? root.base : root.crust
+                                            }
+                                            MouseArea {
+                                                id: applyMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
+                                                onClicked: box7.applyFont()
+                                            }
+                                        }
+                                    }
+                                    Text {
+                                        Layout.fillWidth: true; Layout.topMargin: root.s(4)
+                                        text: "Current: " + box7.currentSystemFont
+                                        font.family: "Inter"; font.pixelSize: root.s(10)
+                                        color: box7.isActive ? Qt.alpha(root.base, 0.65) : Qt.alpha(root.subtext0, 0.6)
                                     }
                                 }
                             }
@@ -1934,7 +2094,7 @@ Item {
                                     color: wBox0.isActive ? Qt.alpha(root.base, 0.25) : Qt.alpha(root.blue, 0.2)
                                     border.color: wBox0.isActive ? Qt.alpha(root.base, 0.5) : root.blue; border.width: 1
                                     Behavior on color { ColorAnimation { duration: 220 } }
-                                    Text { anchors.centerIn: parent; text: "1"; font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(11); color: wBox0.isActive ? root.base : root.blue; Behavior on color { ColorAnimation { duration: 220 } } }
+                                    Text { anchors.centerIn: parent; text: "1"; font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(11); color: wBox0.isActive ? root.base : root.blue; Behavior on color { ColorAnimation { duration: 220 } } }
                                 }
                                 Text {
                                     text: "Get an API Key"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(13)
@@ -1978,7 +2138,7 @@ Item {
                                     color: wBox0.isActive ? Qt.alpha(root.base, 0.25) : Qt.alpha(root.peach, 0.2)
                                     border.color: wBox0.isActive ? Qt.alpha(root.base, 0.5) : root.peach; border.width: 1
                                     Behavior on color { ColorAnimation { duration: 220 } }
-                                    Text { anchors.centerIn: parent; text: "2"; font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(11); color: wBox0.isActive ? root.base : root.peach; Behavior on color { ColorAnimation { duration: 220 } } }
+                                    Text { anchors.centerIn: parent; text: "2"; font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(11); color: wBox0.isActive ? root.base : root.peach; Behavior on color { ColorAnimation { duration: 220 } } }
                                 }
                                 Text {
                                     text: "Find your City ID"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(13)
@@ -2091,7 +2251,7 @@ Item {
                                         id: apiKeyInput
                                         Layout.fillWidth: true; Layout.fillHeight: true
                                         verticalAlignment: TextInput.AlignVCenter
-                                        font.family: "JetBrains Mono"; font.pixelSize: root.s(12)
+                                        font.family: "Liberation Sans"; font.pixelSize: root.s(12)
                                         color: wBox1.isActive ? root.base : root.text; clip: true; selectByMouse: true
                                         echoMode: weatherTabRoot.apiKeyVisible ? TextInput.Normal : TextInput.Password
                                         passwordCharacter: "•"
@@ -2176,7 +2336,7 @@ Item {
                                     id: cityIdInput
                                     anchors.fill: parent; anchors.margins: root.s(10)
                                     verticalAlignment: TextInput.AlignVCenter
-                                    font.family: "JetBrains Mono"; font.pixelSize: root.s(12)
+                                    font.family: "Liberation Sans"; font.pixelSize: root.s(12)
                                     color: wBox2.isActive ? root.base : root.text; clip: true; selectByMouse: true
                                     onTextChanged: Config.weatherCityId = text
                                     Behavior on color { ColorAnimation { duration: 220 } }
@@ -2252,7 +2412,7 @@ Item {
                                         Behavior on border.color { ColorAnimation { duration: 150 } }
                                         Text {
                                             anchors.centerIn: parent; text: modelData.label
-                                            font.family: "JetBrains Mono"; font.pixelSize: root.s(10); font.capitalization: Font.Capitalize
+                                            font.family: "Liberation Sans"; font.pixelSize: root.s(10); font.capitalization: Font.Capitalize
                                             color: isSelected
                                                 ? (parentActive ? root.base : root.base)
                                                 : (parentActive ? Qt.alpha(root.base, 0.6) : root.subtext0)
@@ -2320,7 +2480,7 @@ Item {
                             id: wsCol
                             anchors.top: parent.top; anchors.left: parent.left; anchors.right: parent.right; anchors.margins: root.s(16)
                             spacing: root.s(10)
-                            Text { text: "Workspaces (SUPER + 1-9)"; font.family: "JetBrains Mono"; font.weight: Font.Medium; font.pixelSize: root.s(12); color: root.text; Layout.alignment: Qt.AlignVCenter }
+                            Text { text: "Workspaces (SUPER + 1-9)"; font.family: "Liberation Sans"; font.weight: Font.Medium; font.pixelSize: root.s(12); color: root.text; Layout.alignment: Qt.AlignVCenter }
                             Flow {
                                 Layout.fillWidth: true; spacing: root.s(7)
                                 Repeater {
@@ -2333,7 +2493,7 @@ Item {
                                         Behavior on color { ColorAnimation { duration: 150 } }
                                         Text {
                                             anchors.centerIn: parent; text: parent.wsNum
-                                            font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(11)
+                                            font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(11)
                                             color: wsMa.containsMouse ? root.base : root.peach
                                             Behavior on color { ColorAnimation { duration: 150 } }
                                         }
@@ -2400,12 +2560,12 @@ Item {
                                             visible: model.mods !== ""
                                             Text {
                                                 id: k1Text; anchors.centerIn: parent; text: model.mods
-                                                font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(9)
+                                                font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(9)
                                                 color: root.peach
                                             }
                                         }
                                         Text {
-                                            text: "+"; font.family: "JetBrains Mono"; font.pixelSize: root.s(10)
+                                            text: "+"; font.family: "Liberation Sans"; font.pixelSize: root.s(10)
                                             color: root.overlay0
                                             visible: model.mods !== "" && model.key !== ""; anchors.verticalCenter: parent.verticalCenter
                                         }
@@ -2416,7 +2576,7 @@ Item {
                                             visible: model.key !== ""
                                             Text {
                                                 id: k2Text; anchors.centerIn: parent; text: model.key
-                                                font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(9)
+                                                font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(9)
                                                 color: root.peach
                                             }
                                         }
@@ -2482,7 +2642,7 @@ Item {
                                                 anchors.right: cmdClipRect.shouldMarquee ? undefined : parent.right
                                                 Text {
                                                     id: cmdTextMain; text: (model.dispatcher + " " + model.command).trim()
-                                                    font.family: "JetBrains Mono"; font.pixelSize: root.s(10)
+                                                    font.family: "Liberation Sans"; font.pixelSize: root.s(10)
                                                     color: root.subtext0
                                                 }
                                                 Text {
@@ -2537,7 +2697,7 @@ Item {
                                         Behavior on color { ColorAnimation { duration: 150 } }
                                         Behavior on border.color { ColorAnimation { duration: 150 } }
                                         Text {
-                                            anchors.centerIn: parent; font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(11)
+                                            anchors.centerIn: parent; font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(11)
                                             color: captureTrap.activeFocus ? root.red : root.text
                                             Behavior on color { ColorAnimation { duration: 150 } }
                                             text: captureTrap.activeFocus ? "Press Keys (Esc to confirm)..." : (model.mods ? model.mods + " + " : "") + (model.key || "[Click to Record Shortcut]")
@@ -2631,7 +2791,7 @@ Item {
                                                 RowLayout {
                                                     anchors.fill: parent; anchors.margins: root.s(7)
                                                     Text {
-                                                        text: model.type; font.family: "JetBrains Mono"; font.pixelSize: root.s(11)
+                                                        text: model.type; font.family: "Liberation Sans"; font.pixelSize: root.s(11)
                                                         color: kbRowRect.isTypeOpen ? root.peach : root.text; Layout.fillWidth: true
                                                         Behavior on color { ColorAnimation { duration: 200 } }
                                                     }
@@ -2658,7 +2818,7 @@ Item {
                                                         Behavior on color { ColorAnimation { duration: 120 } }
                                                         Text {
                                                             anchors.verticalCenter: parent.verticalCenter; x: root.s(8); text: modelData
-                                                            font.family: "JetBrains Mono"; font.pixelSize: root.s(11)
+                                                            font.family: "Liberation Sans"; font.pixelSize: root.s(11)
                                                             color: model.type === modelData ? root.peach : root.text
                                                         }
                                                         MouseArea { id: typeItemMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: { dynamicKeybindsModel.setProperty(outerIndex, "type", modelData); kbRowRect.isTypeOpen = false; } }
@@ -2684,7 +2844,7 @@ Item {
                                                 RowLayout {
                                                     anchors.fill: parent; anchors.margins: root.s(7)
                                                     Text {
-                                                        text: model.dispatcher; font.family: "JetBrains Mono"; font.pixelSize: root.s(11)
+                                                        text: model.dispatcher; font.family: "Liberation Sans"; font.pixelSize: root.s(11)
                                                         color: kbRowRect.isDispOpen ? root.peach : root.text; Layout.fillWidth: true
                                                         Behavior on color { ColorAnimation { duration: 200 } }
                                                     }
@@ -2712,7 +2872,7 @@ Item {
                                                         Behavior on color { ColorAnimation { duration: 120 } }
                                                         Text {
                                                             anchors.verticalCenter: parent.verticalCenter; x: root.s(8); text: modelData
-                                                            font.family: "JetBrains Mono"; font.pixelSize: root.s(11)
+                                                            font.family: "Liberation Sans"; font.pixelSize: root.s(11)
                                                             color: model.dispatcher === modelData ? root.peach : root.text
                                                         }
                                                         MouseArea { id: dispItemMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: { dynamicKeybindsModel.setProperty(outerIndex, "dispatcher", modelData); kbRowRect.isDispOpen = false; } }
@@ -2736,7 +2896,7 @@ Item {
                                             anchors.fill: parent; anchors.margins: root.s(9)
                                             verticalAlignment: TextInput.AlignVCenter
                                             text: model.command
-                                            font.family: "JetBrains Mono"; font.pixelSize: root.s(11)
+                                            font.family: "Liberation Sans"; font.pixelSize: root.s(11)
                                             color: root.text; clip: true; selectByMouse: true
                                             onTextChanged: dynamicKeybindsModel.setProperty(outerIndex, "command", text)
                                             Text {
@@ -2765,7 +2925,7 @@ Item {
                                                     Behavior on color { ColorAnimation { duration: 180 } }
                                                 }
                                                 Text {
-                                                    text: "Delete"; font.family: "JetBrains Mono"; font.pixelSize: root.s(10); font.weight: Font.Medium
+                                                    text: "Delete"; font.family: "Liberation Sans"; font.pixelSize: root.s(10); font.weight: Font.Medium
                                                     color: delMa.containsMouse ? root.base : root.red
                                                     Behavior on color { ColorAnimation { duration: 180 } }
                                                 }
@@ -2795,7 +2955,7 @@ Item {
                                                     Behavior on color { ColorAnimation { duration: 180 } }
                                                 }
                                                 Text {
-                                                    text: "Save"; font.family: "JetBrains Mono"; font.pixelSize: root.s(10); font.weight: Font.Medium
+                                                    text: "Save"; font.family: "Liberation Sans"; font.pixelSize: root.s(10); font.weight: Font.Medium
                                                     color: rowSaveMa.containsMouse ? root.base : root.green
                                                     Behavior on color { ColorAnimation { duration: 180 } }
                                                 }
@@ -2917,7 +3077,7 @@ Item {
                             }
                             Text { 
                                 text: "Save"
-                                font.family: "JetBrains Mono"
+                                font.family: "Liberation Sans"
                                 font.weight: Font.Bold
                                 font.pixelSize: root.s(12)
                                 color: headerSaveMa.containsMouse ? root.base : root.text
@@ -2967,7 +3127,7 @@ Item {
                             spacing: root.s(7)
                             Text { 
                                 text: "+"
-                                font.family: "JetBrains Mono"
+                                font.family: "Liberation Sans"
                                 font.weight: Font.Bold
                                 font.pixelSize: root.s(15)
                                 color: headerAddMa.containsMouse ? root.base : root.peach
@@ -2975,7 +3135,7 @@ Item {
                             }
                             Text { 
                                 text: "Add"
-                                font.family: "JetBrains Mono"
+                                font.family: "Liberation Sans"
                                 font.weight: Font.Bold
                                 font.pixelSize: root.s(12)
                                 color: headerAddMa.containsMouse ? root.base : root.text
@@ -3024,13 +3184,13 @@ Item {
                         TextInput {
                             id: globalSearchInput
                             Layout.fillWidth: true; Layout.fillHeight: true; verticalAlignment: TextInput.AlignVCenter
-                            font.family: "JetBrains Mono"; font.pixelSize: root.s(12); color: root.text; clip: true; selectByMouse: true
+                            font.family: "Liberation Sans"; font.pixelSize: root.s(12); color: root.text; clip: true; selectByMouse: true
                             Text {
                                 anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
                                 text: root.isSearchMode ? "Search settings & keybinds..." : "Search"
                                 color: Qt.alpha(root.subtext0, 0.45)
                                 visible: !globalSearchInput.text && !globalSearchInput.activeFocus
-                                font.family: "JetBrains Mono"; font.pixelSize: root.s(12)
+                                font.family: "Liberation Sans"; font.pixelSize: root.s(12)
                             }
                             onActiveFocusChanged: { if (activeFocus && !root.isSearchMode) root.isSearchMode = true; }
                             onTextChanged: { root.globalSearchQuery = text; if (!root.isSearchMode && text.length > 0) root.isSearchMode = true; }
@@ -3217,7 +3377,7 @@ Item {
                                         }
                                         Text {
                                             text: root.tabNames[index]
-                                            font.family: "JetBrains Mono"
+                                            font.family: "Liberation Sans"
                                             font.weight: isActive ? Font.Bold : Font.Medium
                                             font.pixelSize: root.s(12)
                                             color: isActive ? root.base : root.subtext0
@@ -3262,7 +3422,7 @@ Item {
                                 ColumnLayout {
                                     anchors.centerIn: parent; spacing: root.s(8)
                                     Text { Layout.alignment: Qt.AlignHCenter; text: ""; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(30); color: Qt.alpha(root.subtext0, 0.25) }
-                                    Text { Layout.alignment: Qt.AlignHCenter; text: "Type to search settings & keybinds..."; font.family: "JetBrains Mono"; font.pixelSize: root.s(12); color: Qt.alpha(root.subtext0, 0.35) }
+                                    Text { Layout.alignment: Qt.AlignHCenter; text: "Type to search settings & keybinds..."; font.family: "Liberation Sans"; font.pixelSize: root.s(12); color: Qt.alpha(root.subtext0, 0.35) }
                                 }
                             }
 
@@ -3325,7 +3485,7 @@ Item {
                                                 border.color: Qt.alpha(root[root.tabColors[card.tab]], 0.4); border.width: 1
                                                 Text {
                                                     id: tabBadgeText; anchors.centerIn: parent; text: root.tabNames[card.tab]
-                                                    font.family: "JetBrains Mono"; font.pixelSize: root.s(9)
+                                                    font.family: "Liberation Sans"; font.pixelSize: root.s(9)
                                                     color: root[root.tabColors[card.tab]]
                                                 }
                                             }
@@ -3365,7 +3525,7 @@ Item {
                                 RowLayout {
                                     anchors.fill: parent; anchors.leftMargin: root.s(4); spacing: root.s(8)
                                     Rectangle { width: root.s(3); height: root.s(12); radius: root.s(2); color: root.peach }
-                                    Text { text: "Keybinds (" + root.matchingKeybindIndices.length + " match" + (root.matchingKeybindIndices.length !== 1 ? "es" : "") + ")"; font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(10); color: root.peach }
+                                    Text { text: "Keybinds (" + root.matchingKeybindIndices.length + " match" + (root.matchingKeybindIndices.length !== 1 ? "es" : "") + ")"; font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(10); color: root.peach }
                                 }
                             }
 
@@ -3419,12 +3579,12 @@ Item {
                                                         visible: kbItem && kbItem.mods !== ""
                                                         Text {
                                                             id: modsT; anchors.centerIn: parent; text: kbItem ? kbItem.mods : ""
-                                                            font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(8)
+                                                            font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(8)
                                                             color: root.peach
                                                         }
                                                     }
                                                     Text {
-                                                        text: "+"; font.family: "JetBrains Mono"; font.pixelSize: root.s(9)
+                                                        text: "+"; font.family: "Liberation Sans"; font.pixelSize: root.s(9)
                                                         color: root.overlay0
                                                         visible: kbItem && kbItem.mods !== "" && kbItem.key !== ""; anchors.verticalCenter: parent.verticalCenter
                                                     }
@@ -3435,14 +3595,14 @@ Item {
                                                         visible: kbItem && kbItem.key !== ""
                                                         Text {
                                                             id: keyT; anchors.centerIn: parent; text: kbItem ? kbItem.key : ""
-                                                            font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(8)
+                                                            font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(8)
                                                             color: root.peach
                                                         }
                                                     }
                                                 }
                                                 Text {
                                                     text: kbItem ? (kbItem.dispatcher + " " + kbItem.command).trim() : ""
-                                                    font.family: "JetBrains Mono"; font.pixelSize: root.s(9)
+                                                    font.family: "Liberation Sans"; font.pixelSize: root.s(9)
                                                     color: isSearchHighlighted ? root.peach : Qt.alpha(root.subtext0, 0.7)
                                                     elide: Text.ElideRight; Layout.fillWidth: true
                                                     Behavior on color { ColorAnimation { duration: 200 } }
@@ -3454,7 +3614,7 @@ Item {
                                                 border.color: Qt.alpha(root.peach, 0.35); border.width: 1
                                                 Text {
                                                     id: kbBadgeText; anchors.centerIn: parent; text: "Keybinds"
-                                                    font.family: "JetBrains Mono"; font.pixelSize: root.s(9)
+                                                    font.family: "Liberation Sans"; font.pixelSize: root.s(9)
                                                     color: root.peach
                                                 }
                                             }
@@ -3494,6 +3654,7 @@ Item {
                         Behavior on opacity { NumberAnimation { duration: 250; easing.type: Easing.OutExpo } }
                         function focusLangInput() { if (item) item.focusLangInput(); }
                         function focusWpDirInput() { if (item) item.focusWpDirInput(); }
+                        function focusFontInput() { if (item) item.focusFontInput(); }
                         function layoutListIncrementIndex() { if (item) item.layoutListIncrementIndex(); }
                         function layoutListDecrementIndex() { if (item) item.layoutListDecrementIndex(); }
                         function acceptLayoutSelection() { if (item) item.acceptLayoutSelection(); }
@@ -3676,7 +3837,7 @@ Item {
                                         Text {
                                             anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
                                             text: model.command !== "" ? model.command : "(empty command)"
-                                            font.family: "JetBrains Mono"; font.pixelSize: root.s(10)
+                                            font.family: "Liberation Sans"; font.pixelSize: root.s(10)
                                             color: model.command !== "" ? root.text : root.overlay0
                                             elide: Text.ElideRight; width: parent.width
                                         }
@@ -3705,7 +3866,7 @@ Item {
                                                 TextInput {
                                                     id: cmdInputFocus
                                                     Layout.fillWidth: true; Layout.fillHeight: true; verticalAlignment: TextInput.AlignVCenter
-                                                    font.family: "JetBrains Mono"; font.pixelSize: root.s(10); color: root.text; clip: true; selectByMouse: true
+                                                    font.family: "Liberation Sans"; font.pixelSize: root.s(10); color: root.text; clip: true; selectByMouse: true
                                                     text: model.command
                                                     onTextChanged: dynamicStartupModel.setProperty(outerIndex, "command", text)
                                                     Keys.onEscapePressed: { dynamicStartupModel.setProperty(outerIndex, "isEditing", false); root.forceActiveFocus(); }
@@ -3713,7 +3874,7 @@ Item {
                                                         anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
                                                         text: "e.g. waybar, dunst, nm-applet"
                                                         color: Qt.alpha(root.subtext0, 0.45); visible: !parent.text && !parent.activeFocus
-                                                        font.family: "JetBrains Mono"; font.pixelSize: root.s(10)
+                                                        font.family: "Liberation Sans"; font.pixelSize: root.s(10)
                                                     }
                                                 }
                                             }
@@ -3731,7 +3892,7 @@ Item {
                                                 RowLayout {
                                                     id: startupDelRow; anchors.centerIn: parent; spacing: root.s(5)
                                                     Text { text: "󰆴"; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(12); color: startupDelMa.containsMouse ? root.base : root.red; Behavior on color { ColorAnimation { duration: 150 } } }
-                                                    Text { text: "Delete"; font.family: "JetBrains Mono"; font.pixelSize: root.s(10); color: startupDelMa.containsMouse ? root.base : root.red; Behavior on color { ColorAnimation { duration: 150 } } }
+                                                    Text { text: "Delete"; font.family: "Liberation Sans"; font.pixelSize: root.s(10); color: startupDelMa.containsMouse ? root.base : root.red; Behavior on color { ColorAnimation { duration: 150 } } }
                                                 }
                                                 MouseArea { id: startupDelMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: { dynamicStartupModel.remove(outerIndex); root.saveAllStartup(); } }
                                             }
@@ -3745,7 +3906,7 @@ Item {
                                                 RowLayout {
                                                     id: startupDoneRow; anchors.centerIn: parent; spacing: root.s(5)
                                                     Text { text: "󰸞"; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(12); color: startupDoneMa.containsMouse ? root.base : root.green; Behavior on color { ColorAnimation { duration: 150 } } }
-                                                    Text { text: "Done"; font.family: "JetBrains Mono"; font.pixelSize: root.s(10); color: startupDoneMa.containsMouse ? root.base : root.green; Behavior on color { ColorAnimation { duration: 150 } } }
+                                                    Text { text: "Done"; font.family: "Liberation Sans"; font.pixelSize: root.s(10); color: startupDoneMa.containsMouse ? root.base : root.green; Behavior on color { ColorAnimation { duration: 150 } } }
                                                 }
                                                 MouseArea {
                                                     id: startupDoneMa; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
@@ -3886,8 +4047,8 @@ Item {
                                         rotation: root.monCurrentTransform * 90
                                         Behavior on rotation { NumberAnimation { duration: 400; easing.type: Easing.OutQuint } }
                                         Text { Layout.alignment: Qt.AlignHCenter; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(32); color: root.monSelectedResAccent; text: "󰍹"; Behavior on color { ColorAnimation { duration: 400 } } }
-                                        Text { Layout.alignment: Qt.AlignHCenter; font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(13); color: root.text; text: Config.monitorsModel.count > 0 ? Config.monitorsModel.get(0).name : "—" }
-                                        Text { Layout.alignment: Qt.AlignHCenter; font.family: "JetBrains Mono"; font.pixelSize: root.s(11); color: root.subtext0; text: root.monCurrentSimW + "\xd7" + root.monCurrentSimH + " @ " + (Config.monitorsModel.count > 0 ? Config.monitorsModel.get(0).rate : "60") + "Hz" }
+                                        Text { Layout.alignment: Qt.AlignHCenter; font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(13); color: root.text; text: Config.monitorsModel.count > 0 ? Config.monitorsModel.get(0).name : "—" }
+                                        Text { Layout.alignment: Qt.AlignHCenter; font.family: "Liberation Sans"; font.pixelSize: root.s(11); color: root.subtext0; text: root.monCurrentSimW + "\xd7" + root.monCurrentSimH + " @ " + (Config.monitorsModel.count > 0 ? Config.monitorsModel.get(0).rate : "60") + "Hz" }
                                     }
                                 }
                             }
@@ -4008,8 +4169,8 @@ Item {
                                             rotation: model.transform * 90
                                             Behavior on rotation { NumberAnimation { duration: 400; easing.type: Easing.OutQuint } }
                                             Text { Layout.alignment: Qt.AlignHCenter; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(26); color: isActive ? root.monSelectedResAccent : root.text; text: "󰍹"; Behavior on color { ColorAnimation { duration: 300 } } }
-                                            Text { Layout.alignment: Qt.AlignHCenter; font.family: "JetBrains Mono"; font.weight: Font.Black; font.pixelSize: root.s(10); color: root.text; text: model.name }
-                                            Text { Layout.alignment: Qt.AlignHCenter; font.family: "JetBrains Mono"; font.pixelSize: root.s(9); color: root.subtext0; text: model.resW + "\xd7" + model.resH + "@" + model.rate }
+                                            Text { Layout.alignment: Qt.AlignHCenter; font.family: "Liberation Sans"; font.weight: Font.Black; font.pixelSize: root.s(10); color: root.text; text: model.name }
+                                            Text { Layout.alignment: Qt.AlignHCenter; font.family: "Liberation Sans"; font.pixelSize: root.s(9); color: root.subtext0; text: model.resW + "\xd7" + model.resH + "@" + model.rate }
                                         }
                                     }
                                 }
@@ -4129,13 +4290,13 @@ Item {
                             RowLayout {
                                 anchors.fill: parent; anchors.margins: root.s(10); spacing: root.s(6)
                                 Text {
-                                    font.family: "JetBrains Mono"; font.weight: isSel ? Font.Black : Font.Bold; font.pixelSize: root.s(13)
+                                    font.family: "Liberation Sans"; font.weight: isSel ? Font.Black : Font.Bold; font.pixelSize: root.s(13)
                                     color: isSel ? accent : root.text; text: resLabel
                                     Behavior on color { ColorAnimation { duration: 200 } }
                                 }
                                 Item { Layout.fillWidth: true }
                                 Text {
-                                    font.family: "JetBrains Mono"; font.pixelSize: root.s(10)
+                                    font.family: "Liberation Sans"; font.pixelSize: root.s(10)
                                     color: isSel ? root.text : root.overlay0
                                     text: md ? (md.w + "×" + md.h) : ""
                                     Behavior on color { ColorAnimation { duration: 200 } }
@@ -4275,7 +4436,7 @@ Item {
                             Layout.fillWidth: true
                             Text {
                                 text: "Refresh Rate"
-                                font.family: "JetBrains Mono"; font.pixelSize: root.s(11)
+                                font.family: "Liberation Sans"; font.pixelSize: root.s(11)
                                 color: root.subtext0; Layout.fillWidth: true
                             }
                             Text {
@@ -4285,7 +4446,7 @@ Item {
                                     if (rateSlider.numRates > 0) return rateSlider.rates[rateSlider.curIdx] + " Hz";
                                     return Math.round(parseFloat(Config.monitorsModel.get(Config.monActiveEditIndex).rate) || 60) + " Hz";
                                 }
-                                font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(13)
+                                font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(13)
                                 color: root.monSelectedRateAccent
                                 Behavior on color { ColorAnimation { duration: 200 } }
                             }
@@ -4351,7 +4512,7 @@ Item {
                                     Text {
                                         anchors.horizontalCenter: parent.horizontalCenter; y: root.s(4)
                                         text: rateSlider.rates[index]
-                                        font.family: "JetBrains Mono"; font.pixelSize: root.s(8)
+                                        font.family: "Liberation Sans"; font.pixelSize: root.s(8)
                                         font.weight: rateSlider.curIdx === index ? Font.Bold : Font.Normal
                                         color: rateSlider.curIdx === index ? root.monSelectedRateAccent : root.overlay0
                                         Behavior on color { ColorAnimation { duration: 200 } }

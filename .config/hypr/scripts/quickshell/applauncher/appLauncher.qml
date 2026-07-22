@@ -279,7 +279,7 @@ Item {
                         Layout.fillHeight: true
                         background: Item {} 
                         color: window.text
-                        font.family: "JetBrains Mono"
+                        font.family: "Liberation Sans"
                         font.pixelSize: window.s(16)
                         
                         placeholderText: "Search..."
@@ -525,7 +525,7 @@ Item {
                             Text {
                                 Layout.fillWidth: true
                                 text: model.name
-                                font.family: "JetBrains Mono"
+                                font.family: "Liberation Sans"
                                 font.pixelSize: window.s(14)
                                 font.weight: index === appList.currentIndex ? Font.Bold : Font.Medium
                                 color: index === appList.currentIndex ? window.crust : window.text

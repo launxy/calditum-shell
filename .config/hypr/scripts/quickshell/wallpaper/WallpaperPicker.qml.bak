@@ -276,7 +276,7 @@ Item {
             pkill mpvpaper || true
             
             ${wallpaperCmd}
-            ( SAT=$(magick "${escThumb}" -resize 1x1^ -format "%[fx:saturation]" info:- 2>/dev/null); if awk "BEGIN{exit !($SAT < 0.12)}"; then TYPE_FLAG="-t scheme-monochrome"; else TYPE_FLAG=""; fi; matugen image "${escThumb}" --source-color-index 0 $TYPE_FLAG || true; bash "${escReload}" || true ) &
+            ( matugen image "${escThumb}" --source-color-index 0 || true; bash "${escReload}" || true ) &
         `;
         Quickshell.execDetached(["bash", "-c", fullScript]);
     }

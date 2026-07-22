@@ -15,7 +15,7 @@
   "sapphire": "{{colors.primary_container.default.hex}}",
   "peach": "{{colors.tertiary.default.hex}}",
   "green": "{{colors.secondary.default.hex}}",
-  "red": "{{colors.error.default.hex}}",
+  "red": "{{colors.red.default.hex}}",
   "mauve": "{{colors.primary.default.hex}}",
   "pink": "{{colors.tertiary_container.default.hex}}",
   "yellow": "{{colors.secondary_container.default.hex}}",

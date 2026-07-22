@@ -1,6 +1,9 @@
 [config]
 reload_apps = false
 
+[config.custom_colors]
+red = { color = "#ff0000", blend = true }
+
 [templates.quickshell]
 input_path = "~/.config/matugen/templates/qs_colors.json.template"
 output_path = "~/.config/hypr/scripts/quickshell/qs_colors.json"

@@ -241,7 +241,6 @@ Item {
         ListElement { title: "Volume Mixer"; target: "volume"; icon: "󰕾"; desc: "Pipewire integration for I/O \nvolume and stream routing."; preview: "previews/preview_volume.png" }
         ListElement { title: "Wallpaper Picker"; target: "wallpaper"; icon: ""; desc: "Live awww backend rendering \nwith Matugen color generation."; preview: "previews/preview_wallpaper.png" }
         ListElement { title: "Monitors"; target: "monitors"; icon: "󰍹"; desc: "Quick display management."; preview: "previews/preview_monitors.png" }
-        ListElement { title: "Stewart AI"; target: "stewart"; icon: "󰚩"; desc: "Voice assistant integration.\n(Reserved for future, currently disabled)"; preview: "previews/preview_stewart.png" }
     }
 
     Component.onCompleted: { 
@@ -433,16 +432,16 @@ Item {
                             Layout.alignment: Qt.AlignVCenter
                             spacing: root.s(2)
                             Text { 
-                                text: "Imperative"
-                                font.family: "JetBrains Mono"
+                                text: "Calditum"
+                                font.family: "Liberation Sans"
                                 font.weight: Font.Black
                                 font.pixelSize: root.s(15)
                                 color: root.text
                                 Layout.alignment: Qt.AlignLeft 
                             }
                             Text { 
-                                text: "v" + (root.dotsVersion !== "Loading..." ? root.dotsVersion : "...")
-                                font.family: "JetBrains Mono"
+                                text: "v 1.0.0"
+                                font.family: "Liberation Sans"
                                 font.pixelSize: root.s(11)
                                 color: root.subtext0
                                 Layout.alignment: Qt.AlignLeft 
@@ -531,7 +530,7 @@ Item {
                                         
                                         Text { 
                                             text: root.tabNames[index]
-                                            font.family: "JetBrains Mono"
+                                            font.family: "Liberation Sans"
                                             font.weight: parent.parent.isActive ? Font.Bold : Font.Medium
                                             font.pixelSize: root.s(13)
                                             // Dynamic colors (crust vs subtext0) for contrast
@@ -604,12 +603,12 @@ Item {
                             Layout.alignment: Qt.AlignHCenter
                             spacing: root.s(6)
                             Text { text: "󰚰"; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(14); color: root.green }
-                            Text { text: "Update Available"; font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(12); color: root.green }
+                            Text { text: "Update Available"; font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(12); color: root.green }
                         }
                         
                         Text {
                             text: root.dotsVersion + "  " + root.remoteVersion
-                            font.family: "JetBrains Mono"
+                            font.family: "Liberation Sans"
                             font.pixelSize: root.s(10)
                             color: root.subtext0
                             Layout.alignment: Qt.AlignHCenter
@@ -838,7 +837,7 @@ Item {
                                 
                                 Text { 
                                     text: root.sysUser
-                                    font.family: "JetBrains Mono"
+                                    font.family: "Liberation Sans"
                                     font.weight: Font.Black
                                     font.pixelSize: root.s(24)
                                     color: root.text 
@@ -846,7 +845,7 @@ Item {
                                 
                                 Text { 
                                     text: "@" + root.sysHost
-                                    font.family: "JetBrains Mono"
+                                    font.family: "Liberation Sans"
                                     font.pixelSize: root.s(14)
                                     color: root.subtext0 
                                 }
@@ -864,12 +863,12 @@ Item {
                                     RowLayout { 
                                         spacing: root.s(6)
                                         Text { text: ""; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(16); color: root.blue } 
-                                        Text { text: root.sysOS; font.family: "JetBrains Mono"; font.weight: Font.Medium; font.pixelSize: root.s(12); color: root.subtext0 } 
+                                        Text { text: root.sysOS; font.family: "Liberation Sans"; font.weight: Font.Medium; font.pixelSize: root.s(12); color: root.subtext0 } 
                                     }
                                     RowLayout { 
                                         spacing: root.s(6)
                                         Text { text: ""; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(16); color: root.peach } 
-                                        Text { text: root.sysKernel; font.family: "JetBrains Mono"; font.weight: Font.Medium; font.pixelSize: root.s(12); color: root.subtext0 } 
+                                        Text { text: root.sysKernel; font.family: "Liberation Sans"; font.weight: Font.Medium; font.pixelSize: root.s(12); color: root.subtext0 } 
                                     }
                                 }
                                 
@@ -880,7 +879,7 @@ Item {
                                         Text { text: ""; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(16); color: root.green } 
                                         Text { 
                                             text: root.sysCPU
-                                            font.family: "JetBrains Mono"
+                                            font.family: "Liberation Sans"
                                             font.weight: Font.Medium
                                             font.pixelSize: root.s(12)
                                             color: root.subtext0
@@ -893,7 +892,7 @@ Item {
                                         Text { text: "󰢮"; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(16); color: root.yellow } 
                                         Text { 
                                             text: root.sysGPU
-                                            font.family: "JetBrains Mono"
+                                            font.family: "Liberation Sans"
                                             font.weight: Font.Medium
                                             font.pixelSize: root.s(12)
                                             color: root.subtext0
@@ -939,22 +938,16 @@ Item {
                                 Text { anchors.centerIn: parent; text: ""; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(20); color: root.text } 
                             }
                             
-                            Row {
+                            Text {
                                 Layout.alignment: Qt.AlignVCenter
-                                spacing: root.s(1)
-                                Repeater {
-                                    model: [ { l: "i", c: root.red }, { l: "l", c: root.peach }, { l: "y", c: root.yellow }, { l: "a", c: root.green }, { l: "m", c: root.sapphire }, { l: "i", c: root.blue }, { l: "r", c: root.mauve }, { l: "o", c: root.pink } ]
-                                    Text { 
-                                        text: modelData.l
-                                        font.family: "JetBrains Mono"
-                                        font.weight: Font.Black
-                                        font.pixelSize: root.s(14)
-                                        color: modelData.c
-                                        property real hoverOffset: authorMa.containsMouse ? root.s(-3) : 0
-                                        transform: Translate { y: hoverOffset }
-                                        Behavior on hoverOffset { NumberAnimation { duration: 300 + (index * 35); easing.type: Easing.OutBack } } 
-                                    }
-                                }
+                                text: "Original creator: ilyamiro"
+                                font.family: "Liberation Sans"
+                                font.weight: Font.Bold
+                                font.pixelSize: root.s(14)
+                                color: root.text
+                                property real hoverOffset: authorMa.containsMouse ? root.s(-3) : 0
+                                transform: Translate { y: hoverOffset }
+                                Behavior on hoverOffset { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
                             }
                             
                             Item { Layout.fillWidth: true }
@@ -981,6 +974,77 @@ Item {
                             hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
                             onClicked: Quickshell.execDetached(["xdg-open", "https://github.com/ilyamiro/nixos-configuration"]) 
+                        }
+                    }
+
+                    // FORK AUTHOR BLOCK
+                    Rectangle {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: root.s(50)
+                        radius: root.s(10)
+                        color: forkMa.containsMouse ? Qt.alpha(root.surface1, 0.6) : Qt.alpha(root.surface0, 0.4)
+                        border.color: forkMa.containsMouse ? root.mauve : root.surface1
+                        border.width: 1
+                        scale: forkMa.pressed ? 0.98 : (forkMa.containsMouse ? 1.01 : 1.0)
+
+                        Behavior on scale { NumberAnimation { duration: 250; easing.type: Easing.OutBack } }
+                        Behavior on color { ColorAnimation { duration: 200 } }
+                        Behavior on border.color { ColorAnimation { duration: 200 } }
+
+                        RowLayout {
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.margins: root.s(12)
+                            spacing: root.s(15)
+
+                            Rectangle { 
+                                Layout.alignment: Qt.AlignVCenter
+                                width: root.s(32)
+                                height: root.s(32)
+                                radius: root.s(8)
+                                color: root.surface0
+                                border.color: root.surface2
+                                border.width: 1
+                                Text { anchors.centerIn: parent; text: ""; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(20); color: root.text } 
+                            }
+
+                            Text {
+                                Layout.alignment: Qt.AlignVCenter
+                                text: "Fork by launxy"
+                                font.family: "Liberation Sans"
+                                font.weight: Font.Bold
+                                font.pixelSize: root.s(14)
+                                color: root.text
+                                property real hoverOffset: forkMa.containsMouse ? root.s(-3) : 0
+                                transform: Translate { y: hoverOffset }
+                                Behavior on hoverOffset { NumberAnimation { duration: 300; easing.type: Easing.OutBack } }
+                            }
+
+                            Item { Layout.fillWidth: true }
+
+                            Rectangle { 
+                                Layout.alignment: Qt.AlignVCenter
+                                width: root.s(28)
+                                height: root.s(28)
+                                radius: root.s(6)
+                                color: forkMa.containsMouse ? root.surface1 : "transparent"
+                                Text { 
+                                    anchors.centerIn: parent
+                                    text: ""
+                                    font.family: "Iosevka Nerd Font"
+                                    font.pixelSize: root.s(14)
+                                    color: forkMa.containsMouse ? root.mauve : root.subtext0
+                                    Behavior on color { ColorAnimation { duration: 150 } } 
+                                } 
+                            }
+                        }
+                        MouseArea { 
+                            id: forkMa
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: Quickshell.execDetached(["xdg-open", "https://github.com/launxy"]) 
                         }
                     }
 
@@ -1012,7 +1076,7 @@ Item {
                                     anchors.centerIn: parent
                                     spacing: root.s(10)
                                     Text { text: modelData.icon; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(16); color: root[modelData.color] } 
-                                    Text { text: modelData.name; font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(13); color: root.text } 
+                                    Text { text: modelData.name; font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(13); color: root.text } 
                                 }
                                 
                                 MouseArea { 
@@ -1034,7 +1098,7 @@ Item {
 
                     Text { 
                         text: "System Architecture"
-                        font.family: "JetBrains Mono"
+                        font.family: "Liberation Sans"
                         font.weight: Font.Black
                         font.pixelSize: root.s(24)
                         color: root.text
@@ -1082,8 +1146,8 @@ Item {
                                         anchors.right: parent.right
                                         anchors.verticalCenter: parent.verticalCenter
                                         spacing: root.s(2)
-                                        Text { text: model.pkg; font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(14); color: root.text } 
-                                        Text { text: model.role; font.family: "JetBrains Mono"; font.pixelSize: root.s(11); color: root.subtext0 } 
+                                        Text { text: model.pkg; font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(14); color: root.text } 
+                                        Text { text: model.role; font.family: "Liberation Sans"; font.pixelSize: root.s(11); color: root.subtext0 } 
                                     }
                                 }
                                 
@@ -1128,8 +1192,8 @@ Item {
                         ColumnLayout {
                             Layout.fillWidth: true
                             spacing: root.s(4)
-                            Text { text: "Interactive Modules"; font.family: "JetBrains Mono"; font.weight: Font.Black; font.pixelSize: root.s(28); color: root.text }
-                            Text { text: "Use arrow keys or select below to preview. Double-click or press Enter to toggle."; font.family: "JetBrains Mono"; font.pixelSize: root.s(13); color: root.subtext0 }
+                            Text { text: "Interactive Modules"; font.family: "Liberation Sans"; font.weight: Font.Black; font.pixelSize: root.s(28); color: root.text }
+                            Text { text: "Use arrow keys or select below to preview. Double-click or press Enter to toggle."; font.family: "Liberation Sans"; font.pixelSize: root.s(13); color: root.subtext0 }
                         }
                         
                         Item { Layout.fillWidth: true } 
@@ -1150,7 +1214,7 @@ Item {
                                 anchors.centerIn: parent
                                 spacing: root.s(8)
                                 Text { text: "󰐊"; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(20); color: root.base } 
-                                Text { text: "PLAY"; font.family: "JetBrains Mono"; font.weight: Font.Black; font.pixelSize: root.s(14); color: root.base } 
+                                Text { text: "PLAY"; font.family: "Liberation Sans"; font.weight: Font.Black; font.pixelSize: root.s(14); color: root.base } 
                             }
                             
                             MouseArea { 
@@ -1254,7 +1318,7 @@ Item {
                                     } 
                                     Text { 
                                         text: model.title
-                                        font.family: "JetBrains Mono"
+                                        font.family: "Liberation Sans"
                                         font.weight: Font.Bold
                                         font.pixelSize: root.s(12)
                                         color: root.text
@@ -1265,7 +1329,7 @@ Item {
                                 }
                                 Text { 
                                     text: model.desc
-                                    font.family: "JetBrains Mono"
+                                    font.family: "Liberation Sans"
                                     font.pixelSize: root.s(10)
                                     color: root.subtext0
                                     Layout.alignment: Qt.AlignLeft
@@ -1316,7 +1380,7 @@ Item {
                     anchors.bottomMargin: root.s(20)
                     spacing: root.s(20)
 
-                    Text { text: "Theming Engine"; font.family: "JetBrains Mono"; font.weight: Font.Black; font.pixelSize: root.s(28); color: root.text; Layout.alignment: Qt.AlignVCenter }
+                    Text { text: "Theming Engine"; font.family: "Liberation Sans"; font.weight: Font.Black; font.pixelSize: root.s(28); color: root.text; Layout.alignment: Qt.AlignVCenter }
                     
                     Rectangle {
                         Layout.fillWidth: true
@@ -1344,7 +1408,7 @@ Item {
                                     color: root.surface1
                                     Text { anchors.centerIn: parent; text: ""; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(28); color: root.text } 
                                 } 
-                                Text { text: "Wallpaper"; font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(12); color: root.text; Layout.alignment: Qt.AlignHCenter } 
+                                Text { text: "Wallpaper"; font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(12); color: root.text; Layout.alignment: Qt.AlignHCenter } 
                             }
                             
                             Item { 
@@ -1399,7 +1463,7 @@ Item {
                                 ColumnLayout { 
                                     anchors.centerIn: parent
                                     spacing: root.s(8)
-                                    Text { text: "Matugen Core"; font.family: "JetBrains Mono"; font.weight: Font.Black; font.pixelSize: root.s(15); color: root.ambientPurple; Layout.alignment: Qt.AlignHCenter } 
+                                    Text { text: "Matugen Core"; font.family: "Liberation Sans"; font.weight: Font.Black; font.pixelSize: root.s(15); color: root.ambientPurple; Layout.alignment: Qt.AlignHCenter } 
                                     RowLayout { 
                                         spacing: root.s(4)
                                         Layout.alignment: Qt.AlignHCenter
@@ -1470,13 +1534,13 @@ Item {
                                     color: root.surface1
                                     Text { anchors.centerIn: parent; text: "󰏘"; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(28); color: root.text } 
                                 } 
-                                Text { text: "Templates"; font.family: "JetBrains Mono"; font.weight: Font.Bold; font.pixelSize: root.s(12); color: root.text; Layout.alignment: Qt.AlignHCenter } 
+                                Text { text: "Templates"; font.family: "Liberation Sans"; font.weight: Font.Bold; font.pixelSize: root.s(12); color: root.text; Layout.alignment: Qt.AlignHCenter } 
                             }
                             Item { Layout.fillWidth: true } 
                         }
                     }
 
-                    Text { text: "When you change wallpapers, Matugen extracts the dominant colors and injects them directly into these configuration files in real-time:"; font.family: "JetBrains Mono"; font.pixelSize: root.s(13); color: root.subtext0; Layout.fillWidth: true; wrapMode: Text.WordWrap; Layout.alignment: Qt.AlignVCenter }
+                    Text { text: "When you change wallpapers, Matugen extracts the dominant colors and injects them directly into these configuration files in real-time:"; font.family: "Liberation Sans"; font.pixelSize: root.s(13); color: root.subtext0; Layout.fillWidth: true; wrapMode: Text.WordWrap; Layout.alignment: Qt.AlignVCenter }
 
                     GridLayout {
                         Layout.fillWidth: true
@@ -1515,7 +1579,7 @@ Item {
                                         Layout.alignment: Qt.AlignVCenter
                                         Text { anchors.centerIn: parent; text: modelData.i; font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(16); color: root[modelData.c] } 
                                     } 
-                                    Text { text: modelData.f; font.family: "JetBrains Mono"; font.weight: Font.Medium; font.pixelSize: root.s(12); color: root.text; Layout.fillWidth: true; Layout.alignment: Qt.AlignVCenter } 
+                                    Text { text: modelData.f; font.family: "Liberation Sans"; font.weight: Font.Medium; font.pixelSize: root.s(12); color: root.text; Layout.fillWidth: true; Layout.alignment: Qt.AlignVCenter } 
                                 }
                                 MouseArea { id: tplMa; anchors.fill: parent; hoverEnabled: true }
                             }
@@ -1537,15 +1601,75 @@ Item {
                 transform: Translate { y: slideY }
                 Behavior on opacity { NumberAnimation { duration: 250 } }
 
-                RowLayout {
+                ColumnLayout {
                     anchors.centerIn: parent
+                    spacing: root.s(20)
+
+                    // PROJECT LOGO + INFO
+                    ColumnLayout {
+                        Layout.alignment: Qt.AlignHCenter
+                        spacing: root.s(10)
+
+                        Item {
+                            Layout.alignment: Qt.AlignHCenter
+                            Layout.preferredWidth: root.s(96)
+                            Layout.preferredHeight: root.s(96)
+
+                            Image {
+                                id: projectLogo
+                                anchors.fill: parent
+                                source: "file://" + Quickshell.env("HOME") + "/.config/hypr/scripts/quickshell/guide/logo.png"
+                                fillMode: Image.PreserveAspectFit
+                                smooth: true
+                                visible: false
+                            }
+
+                            MultiEffect {
+                                anchors.fill: parent
+                                source: projectLogo
+                                colorization: 0.35
+                                colorizationColor: root.mauve
+                                brightness: 0.0
+                                saturation: 0.0
+                            }
+                        }
+
+                        ColumnLayout {
+                            Layout.alignment: Qt.AlignHCenter
+                            spacing: root.s(4)
+
+                            Text {
+                                Layout.alignment: Qt.AlignHCenter
+                                text: "calditum shell"
+                                font.family: "Liberation Sans"
+                                font.weight: Font.Bold
+                                font.pixelSize: root.s(20)
+                                color: root.text
+                            }
+
+                            Text {
+                                Layout.alignment: Qt.AlignHCenter
+                                Layout.maximumWidth: root.s(320)
+                                horizontalAlignment: Text.AlignHCenter
+                                wrapMode: Text.WordWrap
+                                text: "A fork made by launxy, to fully customize ilymiro's Imperative dots."
+                                font.family: "Liberation Sans"
+                                font.weight: Font.Medium
+                                font.pixelSize: root.s(15)
+                                color: root.subtext0
+                            }
+                        }
+                    }
+
+                    RowLayout {
+                    Layout.alignment: Qt.AlignHCenter
                     spacing: root.s(30)
 
                     Repeater {
                         model: [
-                            { name: "NixOS Config", icon: "", color: "blue", url: "https://github.com/ilyamiro/nixos-configuration" },
+                            { name: "Nofufaudio", icon: "♫", color: "blue", url: "https://github.com/gosanlin/nofufaudio" },
                             { name: "Imperative Dots", icon: "󰣇", color: "mauve", url: "https://github.com/ilyamiro/imperative-dots" },
-                            { name: "Wallpapers", icon: "", color: "peach", url: "https://github.com/ilyamiro/shell-wallpapers" }
+                            { name: "Calditum shell", icon: "󰣇", color: "peach", url: "https://github.com/launxy/calditum-shell" }
                         ]
 
                         Rectangle {
@@ -1575,7 +1699,7 @@ Item {
 
                                 Text {
                                     text: modelData.name
-                                    font.family: "JetBrains Mono"
+                                    font.family: "Liberation Sans"
                                     font.weight: Font.Bold
                                     font.pixelSize: root.s(13)
                                     color: root.text
@@ -1591,6 +1715,7 @@ Item {
                                 onClicked: Quickshell.execDetached(["xdg-open", modelData.url])
                             }
                         }
+                    }
                     }
                 }
             }
