@@ -43,7 +43,7 @@ Just run the installer and you should be good to go.
 - The `movies` and `stewart` modules have been disabled.
 - The topbar has been simplified, removing the color gradients.
 - The topbar now includes a new module to open `wvkbd` (virtual keyboard).
-- You can simply disable sounds on the network/bluetooth by simply deleting the folder
+- You can simply disable sounds on the network/bluetooth module by simply deleting the folder
   ~/.config/hypr/scripts/quickshell/network/sounds/. 
 
 ---
