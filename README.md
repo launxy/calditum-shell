@@ -37,6 +37,21 @@ Just run the installer and you should be good to go.
 
 ---
 
+## 🔧 Changes from the original
+
+- Matugen now generates monochrome colors for black and white wallpapers.
+- The `movies` and `stewart` modules have been disabled.
+- The topbar has been simplified, removing the color gradients.
+- The topbar now includes a new module to open `wvkbd` (virtual keyboard).
+
+---
+
+## 🐛 Known bugs
+
+- The weather module is not properly aligned (at least on my machine).
+
+---
+
 <p align="center">
   Based on the original work by <a href="https://github.com/ilyamiro">ilyamiro</a> — all credit for the original design goes to them.
 </p>
