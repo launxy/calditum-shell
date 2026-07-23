@@ -1,22 +1,17 @@
 <p align="center">
   <img src="src/logo.png" alt="Logo" width="150"/>
 </p>
-
 <h1 align="center">Calditum Shell</h1>
-
 <p align="center">
-  Un fork del shell original creado por <a href="https://github.com/ilyamiro">ilyamiro</a>.
+  A fork of the original shell created by <a href="https://github.com/ilyamiro">ilyamiro</a>.
 </p>
-
 <p align="center">
   <strong>🚧 STILL WORK IN PROGRESS 🚧</strong>
 </p>
 
 ---
 
-
-
-## 🖥️ Vista previa del escritorio
+## 🖥️ Desktop preview
 
 <p align="center">
   <img src="previews/screenshot1.png" width="30%"/>
@@ -27,5 +22,5 @@
 ---
 
 <p align="center">
-  Basado en el trabajo original de <a href="https://github.com/ilyamiro">ilyamiro</a> — todo el crédito por el diseño original le pertenece.
+  Based on the original work by <a href="https://github.com/ilyamiro">ilyamiro</a> — all credit for the original design goes to them.
 </p>
