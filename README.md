@@ -1,15 +1,31 @@
-> [!WARNING]
-> This installer sends anonymous non-identifying telemetry that helps me debug problems and track the amount of users 
+<p align="center">
+  <img src="src/logo.png" alt="Logo" width="150"/>
+</p>
 
-### To install:
-```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/ilyamiro/imperative-dots/master/install.sh)"
-```
+<h1 align="center">Calditum Shell</h1>
 
-### Reach out to me:
-#### twitter/x: @ilyamirox
-#### reddit: u/ilyamiro1
-#### telegram: @sacrificeit
-#### email: ilyamiro.work@gmail.com
+<p align="center">
+  Un fork del shell original creado por <a href="https://github.com/ilyamiro">ilyamiro</a>.
+</p>
+
+<p align="center">
+  <strong>🚧 STILL WORK IN PROGRESS 🚧</strong>
+</p>
+
+---
 
 
+
+## 🖥️ Vista previa del escritorio
+
+<p align="center">
+  <img src="previews/screenshot1.png" width="30%"/>
+  <img src="previews/screenshot2.png" width="30%"/>
+  <img src="previews/screenshot3.png" width="30%"/>
+</p>
+
+---
+
+<p align="center">
+  Basado en el trabajo original de <a href="https://github.com/ilyamiro">ilyamiro</a> — todo el crédito por el diseño original le pertenece.
+</p>
