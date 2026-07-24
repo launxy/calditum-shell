@@ -12,7 +12,13 @@ RELOAD_SCRIPT_PATH="$(dirname "${BASH_SOURCE[0]}")/quickshell/wallpaper/matugen_
 if [ -f "$FLAG" ]; then
     # Use the cached wallpaper image for matugen
     if [ -f "$CACHE_IMG" ]; then
-        matugen image "$CACHE_IMG" --source-color-index 0
+        SAT=$(magick "$CACHE_IMG" -resize 1x1^ -format "%[fx:saturation]" info:- 2>/dev/null)
+        if awk "BEGIN{exit !($SAT < 0.12)}"; then
+            TYPE_FLAG="-t scheme-monochrome"
+        else
+            TYPE_FLAG=""
+        fi
+        matugen image "$CACHE_IMG" --source-color-index 0 $TYPE_FLAG
     fi
     
     if [ -f "$RELOAD_SCRIPT_PATH" ]; then
@@ -37,7 +43,13 @@ if [ -n "$file" ]; then
     
     awww img "$file" --transition-type any --transition-pos 0.5,0.5 --transition-fps 144 --transition-duration 1 &
     
-    matugen image "$file" --source-color-index 0
+    SAT=$(magick "$file" -resize 1x1^ -format "%[fx:saturation]" info:- 2>/dev/null)
+    if awk "BEGIN{exit !($SAT < 0.12)}"; then
+        TYPE_FLAG="-t scheme-monochrome"
+    else
+        TYPE_FLAG=""
+    fi
+    matugen image "$file" --source-color-index 0 $TYPE_FLAG
     
     # Execute reload script if it exists
     if [ -f "$RELOAD_SCRIPT_PATH" ]; then
