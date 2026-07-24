@@ -51,6 +51,7 @@ Just run the installer and you should be good to go.
 ## 🐛 Known bugs
 
 - The weather module is not properly aligned (at least on my machine).
+- The monochrome color palette is lost after each reset
 
 ---
 
