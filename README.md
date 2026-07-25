@@ -50,7 +50,7 @@ Just run the installer and you should be good to go.
 
 ## 🐛 Known bugs
 
-- The weather module is not properly aligned (at least on my machine).
+- The weather module may not be properly aligned if youre using a dual monitor setup.
 - Manually modified settings on the .config/hypr are lost if applied new changes on the Settings module.
 
 ---
