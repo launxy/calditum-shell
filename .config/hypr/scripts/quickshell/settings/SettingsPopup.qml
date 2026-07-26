@@ -893,7 +893,7 @@ Item {
         { tab: 0, boxIndex: 5, label: "Wallpaper directory",desc: "Absolute source path",  icon: "󰋩", color: "mauve" },
         { tab: 0, boxIndex: 6, label: "Workspaces",        desc: "Static count in topbar", icon: "󰽿", color: "red" },
         { tab: 0, boxIndex: 7, label: "System font",       desc: "Font used across Quickshell", icon: "Aa", color: "yellow" },
-        { tab: 0, boxIndex: 8, label: "Energía",           desc: "Bloquear pantalla / suspensión", icon: "󰐥", color: "yellow" },
+        { tab: 0, boxIndex: 8, label: "Power",              desc: "Lock screen / suspend on idle", icon: "󰐥", color: "yellow" },
         { tab: 1, boxIndex: 1, label: "API Key",           desc: "OpenWeather API key",    icon: "󰌆", color: "blue" },
         { tab: 1, boxIndex: 2, label: "City ID",           desc: "OpenWeather city ID",    icon: "󰖐", color: "blue" },
         { tab: 1, boxIndex: 3, label: "Temperature Unit",  desc: "Celsius / Fahrenheit / K", icon: "󰔄", color: "blue" }
@@ -1299,7 +1299,7 @@ Item {
                                     }
                                 }
                                 Text {
-                                    text: "Energía"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(14)
+                                    text: "Power"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(14)
                                     color: box8.isActive ? root.base : root.text; Layout.fillWidth: true
                                     Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                 }
@@ -1311,12 +1311,12 @@ Item {
                                 ColumnLayout {
                                     Layout.fillWidth: true; Layout.alignment: Qt.AlignVCenter; spacing: root.s(3)
                                     Text {
-                                        text: "Bloquear pantalla"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(13)
+                                        text: "Lock screen"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(13)
                                         color: box8.isActive ? root.base : root.text; Layout.fillWidth: true
                                         Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                     }
                                     Text {
-                                        text: "Bloquea la sesión tras 10 min de inactividad"; font.family: "Inter"; font.pixelSize: root.s(11)
+                                        text: "Lock the session after 10 min of inactivity"; font.family: "Inter"; font.pixelSize: root.s(11)
                                         color: box8.isActive ? Qt.alpha(root.base, 0.75) : Qt.alpha(root.subtext0, 0.7); Layout.fillWidth: true
                                         Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                     }
@@ -1349,12 +1349,12 @@ Item {
                                 ColumnLayout {
                                     Layout.fillWidth: true; Layout.alignment: Qt.AlignVCenter; spacing: root.s(3)
                                     Text {
-                                        text: "Suspensión"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(13)
+                                        text: "Suspend"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(13)
                                         color: box8.isActive ? root.base : root.text; Layout.fillWidth: true
                                         Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                     }
                                     Text {
-                                        text: "Suspende el equipo tras 20 min de inactividad"; font.family: "Inter"; font.pixelSize: root.s(11)
+                                        text: "Suspend the machine after 20 min of inactivity"; font.family: "Inter"; font.pixelSize: root.s(11)
                                         color: box8.isActive ? Qt.alpha(root.base, 0.75) : Qt.alpha(root.subtext0, 0.7); Layout.fillWidth: true
                                         Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                     }
