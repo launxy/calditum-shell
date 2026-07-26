@@ -91,6 +91,7 @@ Item {
     property string wallpaperDir: Quickshell.env("WALLPAPER_DIR") || (homeDir + "/Pictures/Wallpapers")
     property string language: ""
     property string kbOptions: "grp:alt_shift_toggle"
+    property bool composeKeyRalt: false
 
     property string weatherUnit: "metric"
     property string weatherApiKey: ""
@@ -115,6 +116,7 @@ Item {
             "wallpaperDir": config.wallpaperDir,
             "language": config.language,
             "kbOptions": config.kbOptions,
+            "composeKeyRalt": config.composeKeyRalt,
             "workspaceCount": config.workspaceCount
         };
 
@@ -380,6 +382,7 @@ Item {
                         if (config.rawSettings.wallpaperDir !== undefined) config.wallpaperDir = config.rawSettings.wallpaperDir;
                         if (config.rawSettings.language !== undefined && config.rawSettings.language !== "") config.language = config.rawSettings.language;
                         if (config.rawSettings.kbOptions !== undefined) config.kbOptions = config.rawSettings.kbOptions;
+                        if (config.rawSettings.composeKeyRalt !== undefined) config.composeKeyRalt = config.rawSettings.composeKeyRalt;
                         if (config.rawSettings.workspaceCount !== undefined) {
                             config.workspaceCount = config.rawSettings.workspaceCount;
                             config.initialWorkspaceCount = config.rawSettings.workspaceCount; 

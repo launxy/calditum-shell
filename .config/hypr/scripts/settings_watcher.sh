@@ -35,6 +35,14 @@ compile_settings() {
     # Read state from JSON (Using 'has' to safely parse booleans)
     LANG=$(jq -r '.language // "us"' "$SETTINGS_FILE")
     KB_OPT=$(jq -r '.kbOptions // "grp:alt_shift_toggle"' "$SETTINGS_FILE")
+    COMPOSE_RALT=$(jq -r 'if has("composeKeyRalt") then .composeKeyRalt else false end' "$SETTINGS_FILE")
+    if [[ "$COMPOSE_RALT" == "true" ]]; then
+        if [[ -n "$KB_OPT" ]]; then
+            KB_OPT="${KB_OPT},compose:ralt"
+        else
+            KB_OPT="compose:ralt"
+        fi
+    fi
     WP_DIR=$(jq -r '.wallpaperDir // empty' "$SETTINGS_FILE")
 
     # Safely parse booleans so "false" doesn't trigger a fallback

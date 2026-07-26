@@ -1758,6 +1758,44 @@ Item {
                                             }
                                         }
                                     }
+
+                                    // Compose key -> Right Alt
+                                    RowLayout {
+                                        Layout.fillWidth: true; Layout.topMargin: root.s(10); spacing: root.s(14)
+                                        ColumnLayout {
+                                            Layout.fillWidth: true; Layout.alignment: Qt.AlignVCenter; spacing: root.s(3)
+                                            Text {
+                                                text: "Compose key"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(13)
+                                                color: box4.isActive ? root.base : root.text; Layout.fillWidth: true
+                                                Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                            }
+                                            Text {
+                                                text: "Bind Compose to Right Alt (compose:ralt)"; font.family: "Inter"; font.pixelSize: root.s(11)
+                                                color: box4.isActive ? Qt.alpha(root.base, 0.75) : Qt.alpha(root.subtext0, 0.7); Layout.fillWidth: true
+                                                Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                            }
+                                        }
+                                        Rectangle {
+                                            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                                            Layout.preferredWidth: root.s(40); Layout.preferredHeight: root.s(22); radius: root.s(11)
+                                            scale: toggleComposeMa.containsMouse ? 1.05 : 1.0
+                                            Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.OutBack } }
+                                            color: Config.composeKeyRalt
+                                                ? (box4.isActive ? root.base : root.teal)
+                                                : Qt.alpha(root.surface2, box4.isActive ? 0.4 : 1.0)
+                                            Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                            Rectangle {
+                                                width: root.s(16); height: root.s(16); radius: root.s(8)
+                                                color: Config.composeKeyRalt
+                                                    ? (box4.isActive ? root.teal : root.base)
+                                                    : (box4.isActive ? root.teal : root.surface0)
+                                                y: root.s(3); x: Config.composeKeyRalt ? root.s(21) : root.s(3)
+                                                Behavior on x { NumberAnimation { duration: 250; easing.type: Easing.OutBack } }
+                                                Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                            }
+                                            MouseArea { id: toggleComposeMa; anchors.fill: parent; hoverEnabled: true; onClicked: Config.composeKeyRalt = !Config.composeKeyRalt; cursorShape: Qt.PointingHandCursor }
+                                        }
+                                    }
                                 }
                             }
                         }

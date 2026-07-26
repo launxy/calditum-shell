@@ -1,0 +1,96 @@
+diff --git a/.config/hypr/scripts/quickshell/Config.qml b/.config/hypr/scripts/quickshell/Config.qml
+index a5c9750..1e2238d 100644
+--- a/.config/hypr/scripts/quickshell/Config.qml
++++ b/.config/hypr/scripts/quickshell/Config.qml
+@@ -91,6 +91,7 @@ Item {
+     property string wallpaperDir: Quickshell.env("WALLPAPER_DIR") || (homeDir + "/Pictures/Wallpapers")
+     property string language: ""
+     property string kbOptions: "grp:alt_shift_toggle"
++    property bool composeKeyRalt: false
+ 
+     property string weatherUnit: "metric"
+     property string weatherApiKey: ""
+@@ -115,6 +116,7 @@ Item {
+             "wallpaperDir": config.wallpaperDir,
+             "language": config.language,
+             "kbOptions": config.kbOptions,
++            "composeKeyRalt": config.composeKeyRalt,
+             "workspaceCount": config.workspaceCount
+         };
+ 
+@@ -380,6 +382,7 @@ Item {
+                         if (config.rawSettings.wallpaperDir !== undefined) config.wallpaperDir = config.rawSettings.wallpaperDir;
+                         if (config.rawSettings.language !== undefined && config.rawSettings.language !== "") config.language = config.rawSettings.language;
+                         if (config.rawSettings.kbOptions !== undefined) config.kbOptions = config.rawSettings.kbOptions;
++                        if (config.rawSettings.composeKeyRalt !== undefined) config.composeKeyRalt = config.rawSettings.composeKeyRalt;
+                         if (config.rawSettings.workspaceCount !== undefined) {
+                             config.workspaceCount = config.rawSettings.workspaceCount;
+                             config.initialWorkspaceCount = config.rawSettings.workspaceCount; 
+diff --git a/.config/hypr/scripts/quickshell/settings/SettingsPopup.qml b/.config/hypr/scripts/quickshell/settings/SettingsPopup.qml
+index d037032..5ecf1f9 100644
+--- a/.config/hypr/scripts/quickshell/settings/SettingsPopup.qml
++++ b/.config/hypr/scripts/quickshell/settings/SettingsPopup.qml
+@@ -1758,6 +1758,44 @@ Item {
+                                             }
+                                         }
+                                     }
++
++                                    // Compose key -> Right Alt
++                                    RowLayout {
++                                        Layout.fillWidth: true; Layout.topMargin: root.s(10); spacing: root.s(14)
++                                        ColumnLayout {
++                                            Layout.fillWidth: true; Layout.alignment: Qt.AlignVCenter; spacing: root.s(3)
++                                            Text {
++                                                text: "Compose key"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(13)
++                                                color: box4.isActive ? root.base : root.text; Layout.fillWidth: true
++                                                Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
++                                            }
++                                            Text {
++                                                text: "Bind Compose to Right Alt (compose:ralt)"; font.family: "Inter"; font.pixelSize: root.s(11)
++                                                color: box4.isActive ? Qt.alpha(root.base, 0.75) : Qt.alpha(root.subtext0, 0.7); Layout.fillWidth: true
++                                                Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
++                                            }
++                                        }
++                                        Rectangle {
++                                            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
++                                            Layout.preferredWidth: root.s(40); Layout.preferredHeight: root.s(22); radius: root.s(11)
++                                            scale: toggleComposeMa.containsMouse ? 1.05 : 1.0
++                                            Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.OutBack } }
++                                            color: Config.composeKeyRalt
++                                                ? (box4.isActive ? root.base : root.teal)
++                                                : Qt.alpha(root.surface2, box4.isActive ? 0.4 : 1.0)
++                                            Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
++                                            Rectangle {
++                                                width: root.s(16); height: root.s(16); radius: root.s(8)
++                                                color: Config.composeKeyRalt
++                                                    ? (box4.isActive ? root.teal : root.base)
++                                                    : (box4.isActive ? root.teal : root.surface0)
++                                                y: root.s(3); x: Config.composeKeyRalt ? root.s(21) : root.s(3)
++                                                Behavior on x { NumberAnimation { duration: 250; easing.type: Easing.OutBack } }
++                                                Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
++                                            }
++                                            MouseArea { id: toggleComposeMa; anchors.fill: parent; hoverEnabled: true; onClicked: Config.composeKeyRalt = !Config.composeKeyRalt; cursorShape: Qt.PointingHandCursor }
++                                        }
++                                    }
+                                 }
+                             }
+                         }
+diff --git a/.config/hypr/scripts/settings_watcher.sh b/.config/hypr/scripts/settings_watcher.sh
+index 99af34b..d46ed6a 100755
+--- a/.config/hypr/scripts/settings_watcher.sh
++++ b/.config/hypr/scripts/settings_watcher.sh
+@@ -35,6 +35,14 @@ compile_settings() {
+     # Read state from JSON (Using 'has' to safely parse booleans)
+     LANG=$(jq -r '.language // "us"' "$SETTINGS_FILE")
+     KB_OPT=$(jq -r '.kbOptions // "grp:alt_shift_toggle"' "$SETTINGS_FILE")
++    COMPOSE_RALT=$(jq -r 'if has("composeKeyRalt") then .composeKeyRalt else false end' "$SETTINGS_FILE")
++    if [[ "$COMPOSE_RALT" == "true" ]]; then
++        if [[ -n "$KB_OPT" ]]; then
++            KB_OPT="${KB_OPT},compose:ralt"
++        else
++            KB_OPT="compose:ralt"
++        fi
++    fi
+     WP_DIR=$(jq -r '.wallpaperDir // empty' "$SETTINGS_FILE")
+ 
+     # Safely parse booleans so "false" doesn't trigger a fallback
