@@ -124,7 +124,7 @@ Item {
     }
 
     function maxHighlightForTab(tab) {
-        if (tab === 0) return 7;
+        if (tab === 0) return 8;
         if (tab === 1) return 3;
         if (tab === 2) return dynamicKeybindsModel.count - 1;
         if (tab === 4) return dynamicStartupModel.count - 1;
@@ -147,6 +147,8 @@ Item {
             } else if (root.highlightedBox === 6) {
             } else if (root.highlightedBox === 7) {
                 if (generalLoader.item) generalLoader.item.focusFontInput();
+            } else if (root.highlightedBox === 8) {
+                Config.idleLockEnabled = !Config.idleLockEnabled;
             }
         } else if (root.currentTab === 1) {
             if (root.highlightedBox === 0) {
@@ -891,6 +893,7 @@ Item {
         { tab: 0, boxIndex: 5, label: "Wallpaper directory",desc: "Absolute source path",  icon: "󰋩", color: "mauve" },
         { tab: 0, boxIndex: 6, label: "Workspaces",        desc: "Static count in topbar", icon: "󰽿", color: "red" },
         { tab: 0, boxIndex: 7, label: "System font",       desc: "Font used across Quickshell", icon: "Aa", color: "yellow" },
+        { tab: 0, boxIndex: 8, label: "Energía",           desc: "Bloquear pantalla / suspensión", icon: "󰐥", color: "yellow" },
         { tab: 1, boxIndex: 1, label: "API Key",           desc: "OpenWeather API key",    icon: "󰌆", color: "blue" },
         { tab: 1, boxIndex: 2, label: "City ID",           desc: "OpenWeather city ID",    icon: "󰖐", color: "blue" },
         { tab: 1, boxIndex: 3, label: "Temperature Unit",  desc: "Celsius / Fahrenheit / K", icon: "󰔄", color: "blue" }
@@ -1255,6 +1258,127 @@ Item {
                                     Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                 }
                                 MouseArea { id: toggle2Ma; anchors.fill: parent; hoverEnabled: true; onClicked: Config.topbarHelpIcon = !Config.topbarHelpIcon; cursorShape: Qt.PointingHandCursor }
+                            }
+                        }
+                    }
+
+                    // ── Box 8: Energy (lock screen / suspend) ────────────────
+                    Rectangle {
+                        id: box8
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: energyCol.implicitHeight + root.s(28)
+                        radius: root.s(12)
+
+                        property bool isActive: root.highlightedBox === 8
+                        color: isActive ? root.yellow : root.surface0
+                        border.color: isActive ? root.yellow : root.surface1
+                        border.width: 1
+                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+
+                        MouseArea { anchors.fill: parent; onClicked: root.highlightedBox = 8; z: -1 }
+
+                        ColumnLayout {
+                            id: energyCol
+                            anchors.top: parent.top
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.margins: root.s(16)
+                            spacing: root.s(14)
+
+                            RowLayout {
+                                Layout.fillWidth: true
+                                spacing: root.s(14)
+                                Item {
+                                    Layout.preferredWidth: root.s(22)
+                                    Layout.alignment: Qt.AlignVCenter
+                                    Text {
+                                        anchors.centerIn: parent; text: "󰐥"
+                                        font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(18)
+                                        color: box8.isActive ? root.base : root.yellow
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                }
+                                Text {
+                                    text: "Energía"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(14)
+                                    color: box8.isActive ? root.base : root.text; Layout.fillWidth: true
+                                    Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                }
+                            }
+
+                            // Lock screen row
+                            RowLayout {
+                                Layout.fillWidth: true; spacing: root.s(14)
+                                ColumnLayout {
+                                    Layout.fillWidth: true; Layout.alignment: Qt.AlignVCenter; spacing: root.s(3)
+                                    Text {
+                                        text: "Bloquear pantalla"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(13)
+                                        color: box8.isActive ? root.base : root.text; Layout.fillWidth: true
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                    Text {
+                                        text: "Bloquea la sesión tras 10 min de inactividad"; font.family: "Inter"; font.pixelSize: root.s(11)
+                                        color: box8.isActive ? Qt.alpha(root.base, 0.75) : Qt.alpha(root.subtext0, 0.7); Layout.fillWidth: true
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                }
+                                Rectangle {
+                                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                                    Layout.preferredWidth: root.s(40); Layout.preferredHeight: root.s(22); radius: root.s(11)
+                                    scale: toggleLockMa.containsMouse ? 1.05 : 1.0
+                                    Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.OutBack } }
+                                    color: Config.idleLockEnabled
+                                        ? (box8.isActive ? root.base : root.yellow)
+                                        : Qt.alpha(root.surface2, box8.isActive ? 0.4 : 1.0)
+                                    Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    Rectangle {
+                                        width: root.s(16); height: root.s(16); radius: root.s(8)
+                                        color: Config.idleLockEnabled
+                                            ? (box8.isActive ? root.yellow : root.base)
+                                            : (box8.isActive ? root.yellow : root.surface0)
+                                        y: root.s(3); x: Config.idleLockEnabled ? root.s(21) : root.s(3)
+                                        Behavior on x { NumberAnimation { duration: 250; easing.type: Easing.OutBack } }
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                    MouseArea { id: toggleLockMa; anchors.fill: parent; hoverEnabled: true; onClicked: Config.idleLockEnabled = !Config.idleLockEnabled; cursorShape: Qt.PointingHandCursor }
+                                }
+                            }
+
+                            // Suspend row
+                            RowLayout {
+                                Layout.fillWidth: true; spacing: root.s(14)
+                                ColumnLayout {
+                                    Layout.fillWidth: true; Layout.alignment: Qt.AlignVCenter; spacing: root.s(3)
+                                    Text {
+                                        text: "Suspensión"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(13)
+                                        color: box8.isActive ? root.base : root.text; Layout.fillWidth: true
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                    Text {
+                                        text: "Suspende el equipo tras 20 min de inactividad"; font.family: "Inter"; font.pixelSize: root.s(11)
+                                        color: box8.isActive ? Qt.alpha(root.base, 0.75) : Qt.alpha(root.subtext0, 0.7); Layout.fillWidth: true
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                }
+                                Rectangle {
+                                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                                    Layout.preferredWidth: root.s(40); Layout.preferredHeight: root.s(22); radius: root.s(11)
+                                    scale: toggleSuspendMa.containsMouse ? 1.05 : 1.0
+                                    Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.OutBack } }
+                                    color: Config.idleSuspendEnabled
+                                        ? (box8.isActive ? root.base : root.yellow)
+                                        : Qt.alpha(root.surface2, box8.isActive ? 0.4 : 1.0)
+                                    Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    Rectangle {
+                                        width: root.s(16); height: root.s(16); radius: root.s(8)
+                                        color: Config.idleSuspendEnabled
+                                            ? (box8.isActive ? root.yellow : root.base)
+                                            : (box8.isActive ? root.yellow : root.surface0)
+                                        y: root.s(3); x: Config.idleSuspendEnabled ? root.s(21) : root.s(3)
+                                        Behavior on x { NumberAnimation { duration: 250; easing.type: Easing.OutBack } }
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                    MouseArea { id: toggleSuspendMa; anchors.fill: parent; hoverEnabled: true; onClicked: Config.idleSuspendEnabled = !Config.idleSuspendEnabled; cursorShape: Qt.PointingHandCursor }
+                                }
                             }
                         }
                     }

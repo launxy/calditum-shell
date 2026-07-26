@@ -13,6 +13,7 @@ AUTOSTART_CONF="$CONF_DIR/autostart.conf"
 ENV_CONF="$CONF_DIR/env.conf"
 KEYBINDS_CONF="$CONF_DIR/keybindings.conf"
 MONITORS_CONF="$CONF_DIR/monitors.conf"
+HYPRIDLE_CONF="$HOME/.config/hypr/hypridle.conf"
 ZSH_RC="$HOME/.zshrc"
 
 # Ensure the required files and directories exist
@@ -29,6 +30,7 @@ compile_settings() {
     # This means a pure uiScale/wallpaperDir/weatherApiKey write never triggers a reload.
     OLD_NONMON_HASH=$(md5sum "$SETTINGS_CONF" "$KEYBINDS_CONF" "$AUTOSTART_CONF" "$ENV_CONF" 2>/dev/null | md5sum)
     OLD_MON_HASH=$(md5sum "$MONITORS_CONF" 2>/dev/null | md5sum)
+    OLD_IDLE_HASH=$(md5sum "$HYPRIDLE_CONF" 2>/dev/null | md5sum)
 
     # Read state from JSON (Using 'has' to safely parse booleans)
     LANG=$(jq -r '.language // "us"' "$SETTINGS_FILE")
@@ -100,9 +102,37 @@ compile_settings() {
         echo "monitor = , preferred, auto, 1" >> "$MONITORS_CONF"
     fi
 
+    # 6. Regenerate hypridle.conf (screen lock / suspend on idle)
+    echo "Regenerating hypridle.conf..."
+    IDLE_LOCK=$(jq -r 'if has("idleLockEnabled") then .idleLockEnabled else true end' "$SETTINGS_FILE")
+    IDLE_SUSPEND=$(jq -r 'if has("idleSuspendEnabled") then .idleSuspendEnabled else true end' "$SETTINGS_FILE")
+
+    LOCK_LISTENER=""
+    if [[ "$IDLE_LOCK" == "true" ]]; then
+        LOCK_LISTENER=$'listener {\n    timeout = 600\n    on-timeout = loginctl lock-session\n}'
+    fi
+
+    SUSPEND_LISTENER=""
+    if [[ "$IDLE_SUSPEND" == "true" ]]; then
+        SUSPEND_LISTENER=$'listener {\n    timeout = 1200\n    on-timeout = systemctl suspend\n}'
+    fi
+
+    awk -v lock="$LOCK_LISTENER" -v suspend="$SUSPEND_LISTENER" '{
+        if (index($0, "{{LOCK_LISTENER}}")) { print lock }
+        else if (index($0, "{{SUSPEND_LISTENER}}")) { print suspend }
+        else { print $0 }
+    }' "$TMPL_DIR/hypridle.conf.template" > "$HYPRIDLE_CONF"
+
     # Hash after changes
     NEW_NONMON_HASH=$(md5sum "$SETTINGS_CONF" "$KEYBINDS_CONF" "$AUTOSTART_CONF" "$ENV_CONF" 2>/dev/null | md5sum)
     NEW_MON_HASH=$(md5sum "$MONITORS_CONF" 2>/dev/null | md5sum)
+    NEW_IDLE_HASH=$(md5sum "$HYPRIDLE_CONF" 2>/dev/null | md5sum)
+
+    if [ "$OLD_IDLE_HASH" != "$NEW_IDLE_HASH" ]; then
+        echo "hypridle.conf changed, restarting hypridle..."
+        pkill hypridle
+        hypridle & disown
+    fi
 
     if [ "$OLD_MON_HASH" != "$NEW_MON_HASH" ]; then
         # Monitor layout actually changed — full reload needed
