@@ -10,6 +10,8 @@ import "../"
 Item {
     id: window
 
+    readonly property real bgAlpha: Config.blurEnabled ? 0.35 : 0.85
+
     Caching { id: paths }
 
     // --- Responsive Scaling Logic ---
@@ -511,7 +513,7 @@ Item {
         Rectangle {
             anchors.fill: parent
             radius: Math.round(20 * window.sf)
-            color: Qt.rgba(window.base.r, window.base.g, window.base.b, 0.35)
+            color: Qt.rgba(window.base.r, window.base.g, window.base.b, window.bgAlpha)
             border.color: window.surface0
             border.width: 1
             clip: true

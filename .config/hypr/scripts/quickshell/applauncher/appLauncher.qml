@@ -11,6 +11,8 @@ Item {
     id: window
     focus: true
 
+    readonly property real bgAlpha: Config.blurEnabled ? 0.35 : 0.85
+
     // --- Responsive Scaling Logic ---
     Scaler {
         id: scaler
@@ -221,7 +223,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
 
         radius: window.s(16)
-        color: Qt.rgba(window.base.r, window.base.g, window.base.b, 0.35)
+        color: Qt.rgba(window.base.r, window.base.g, window.base.b, window.bgAlpha)
         border.color: window.surface1
         border.width: 1
         clip: true

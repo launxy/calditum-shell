@@ -75,6 +75,7 @@ Variants {
             // Adaptive text/icon color: near-black on light wallpapers, near-white on dark ones
             readonly property color fgColor: mocha.isLight ? "#1a1a1a" : "#f2f2f2"
             readonly property color fgColorDim: mocha.isLight ? Qt.rgba(0.1, 0.1, 0.1, 0.6) : Qt.rgba(0.95, 0.95, 0.95, 0.6)
+            readonly property real bgAlpha: Config.blurEnabled ? 0.35 : 0.85
 
             property bool showHelpIcon: true
             property bool isRecording: false
@@ -591,7 +592,7 @@ Variants {
                     y: (parent.height - barWindow.barHeight) / 2
                     height: barWindow.barHeight
 
-                    color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
+                    color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, barWindow.bgAlpha)
                     radius: barWindow.s(14)
                     border.width: 1
                     border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, 0.08)
@@ -754,7 +755,7 @@ Variants {
                 
                 Rectangle {
                     id: workspacesBox
-                    color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
+                    color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, barWindow.bgAlpha)
                     radius: barWindow.s(14); border.width: 1; border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, 0.05)
                     height: barWindow.barHeight
                     y: (parent.height - barWindow.barHeight) / 2
@@ -888,7 +889,7 @@ Variants {
 
                 Rectangle {
                     id: mediaBox
-                    color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
+                    color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, barWindow.bgAlpha)
                     radius: barWindow.s(14); border.width: 1; border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, 0.05)
                     y: (parent.height - barWindow.barHeight) / 2
                     height: barWindow.barHeight
@@ -1032,7 +1033,7 @@ Variants {
                 Rectangle {
                     id: centerBox
                     property bool isHovered: centerMouse.containsMouse
-                    color: isHovered ? Qt.rgba(mocha.surface1.r, mocha.surface1.g, mocha.surface1.b, 0.55) : Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
+                    color: isHovered ? Qt.rgba(mocha.surface1.r, mocha.surface1.g, mocha.surface1.b, 0.55) : Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, barWindow.bgAlpha)
                     radius: barWindow.s(14); border.width: 1; border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, isHovered ? 0.15 : 0.05)
                     
                     y: (parent.height - barWindow.barHeight) / 2
@@ -1112,7 +1113,7 @@ Variants {
                         radius: barWindow.s(14)
                         border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, 0.08)
                         border.width: 1
-                        color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
+                        color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, barWindow.bgAlpha)
                         
                         property real targetWidth: trayRepeater.count > 0 ? trayLayout.width + barWindow.s(24) : 0
                         width: targetWidth
@@ -1212,7 +1213,7 @@ Variants {
                         radius: barWindow.s(14)
                         border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, 0.08)
                         border.width: 1
-                        color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
+                        color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, barWindow.bgAlpha)
                         clip: true
                         
                         width: sysLayout.implicitWidth + barWindow.s(20)
@@ -1468,7 +1469,7 @@ Variants {
                         id: recButton
                         property bool isHovered: recMouse.containsMouse
                         
-                        color: isHovered ? Qt.rgba(mocha.surface1.r, mocha.surface1.g, mocha.surface1.b, 0.55) : Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
+                        color: isHovered ? Qt.rgba(mocha.surface1.r, mocha.surface1.g, mocha.surface1.b, 0.55) : Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, barWindow.bgAlpha)
                         radius: barWindow.s(14)
                         border.width: 1
                         border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, isHovered ? 0.15 : 0.05)

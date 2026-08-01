@@ -11,6 +11,8 @@ import "../"
 Item {
     id: root
 
+    readonly property real bgAlpha: Config.blurEnabled ? 0.35 : 0.85
+
     // --- Responsive Scaling Logic ---
     Scaler {
         id: scaler
@@ -453,7 +455,7 @@ Item {
                 anchors.fill: parent
                 maskEnabled: true
                 maskSource: maskRectOuter
-                opacity: 0.35
+                opacity: root.bgAlpha
             }
         }
 
@@ -462,7 +464,7 @@ Item {
             id: innerBg
             anchors.fill: parent
             anchors.margins: root.s(3)
-            color: Qt.rgba(root.base.r, root.base.g, root.base.b, 0.35)
+            color: Qt.rgba(root.base.r, root.base.g, root.base.b, root.bgAlpha)
             radius: root.s(10)
 
             // FIX: This forces the entire background to render as a single hardware texture,

@@ -9,6 +9,8 @@ import "../"
 
 Item {
     id: window
+
+    readonly property real bgAlpha: Config.blurEnabled ? 0.35 : 0.85
     focus: true
 
     Caching { id: paths }
@@ -841,7 +843,7 @@ Item {
         Rectangle {
             anchors.fill: parent
             radius: window.s(20)
-            color: Qt.rgba(window.base.r, window.base.g, window.base.b, 0.35)
+            color: Qt.rgba(window.base.r, window.base.g, window.base.b, window.bgAlpha)
             border.color: window.surface0
             border.width: 1
             clip: true
