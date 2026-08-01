@@ -185,7 +185,7 @@ Item {
                         awww img -o "$TARGET_MONITORS" "$DEST_FILE" --transition-type ${randomTransition} --transition-pos 0.5,0.5 --transition-fps 144 --transition-duration 1 >> ${logFile} 2>&1 &
                     fi
                     
-                    ( SAT=$(magick "$FINAL_THUMB" -resize 1x1^ -format "%[fx:saturation]" info:- 2>/dev/null); if awk "BEGIN{exit !($SAT < 0.12)}"; then TYPE_FLAG="-t scheme-monochrome"; else TYPE_FLAG=""; fi; matugen image "$FINAL_THUMB" --source-color-index 0 $TYPE_FLAG || true; bash "$RELOAD_SCRIPT" || true ) &
+                    ( SAT=$(magick "$FINAL_THUMB" -resize 1x1^ -format "%[fx:saturation]" info:- 2>/dev/null); LUMA=$(magick "$FINAL_THUMB" -resize 1x1^ -colorspace Gray -format "%[fx:mean]" info:- 2>/dev/null); if awk "BEGIN{exit !($SAT < 0.12)}"; then TYPE_FLAG="-t scheme-monochrome"; else TYPE_FLAG=""; fi; echo "{\"isLight\": $(awk "BEGIN{print ($LUMA > 0.55) ? \"true\" : \"false\"}")}" > ~/.config/hypr/scripts/quickshell/wallpaper_luma.json; matugen image "$FINAL_THUMB" --source-color-index 0 $TYPE_FLAG || true; bash "$RELOAD_SCRIPT" || true ) &
                 `;
                 Quickshell.execDetached(["bash", "-c", applyScript]);
             } else {
@@ -227,7 +227,7 @@ Item {
                             awww img -o "$TARGET_MONITORS" "$DEST_FILE" --transition-type ${randomTransition} --transition-pos 0.5,0.5 --transition-fps 144 --transition-duration 1 >> ${logFile} 2>&1 &
                         fi
                         
-                        ( SAT=$(magick "$FINAL_THUMB" -resize 1x1^ -format "%[fx:saturation]" info:- 2>/dev/null); if awk "BEGIN{exit !($SAT < 0.12)}"; then TYPE_FLAG="-t scheme-monochrome"; else TYPE_FLAG=""; fi; matugen image "$FINAL_THUMB" --source-color-index 0 $TYPE_FLAG || true; bash "$RELOAD_SCRIPT" || true ) &
+                        ( SAT=$(magick "$FINAL_THUMB" -resize 1x1^ -format "%[fx:saturation]" info:- 2>/dev/null); LUMA=$(magick "$FINAL_THUMB" -resize 1x1^ -colorspace Gray -format "%[fx:mean]" info:- 2>/dev/null); if awk "BEGIN{exit !($SAT < 0.12)}"; then TYPE_FLAG="-t scheme-monochrome"; else TYPE_FLAG=""; fi; echo "{\"isLight\": $(awk "BEGIN{print ($LUMA > 0.55) ? \"true\" : \"false\"}")}" > ~/.config/hypr/scripts/quickshell/wallpaper_luma.json; matugen image "$FINAL_THUMB" --source-color-index 0 $TYPE_FLAG || true; bash "$RELOAD_SCRIPT" || true ) &
                     fi
                 `;
                 Quickshell.execDetached(["bash", "-c", downloadScript]);
@@ -276,7 +276,7 @@ Item {
             pkill mpvpaper || true
             
             ${wallpaperCmd}
-            ( SAT=$(magick "${escThumb}" -resize 1x1^ -format "%[fx:saturation]" info:- 2>/dev/null); if awk "BEGIN{exit !($SAT < 0.12)}"; then TYPE_FLAG="-t scheme-monochrome"; else TYPE_FLAG=""; fi; matugen image "${escThumb}" --source-color-index 0 $TYPE_FLAG || true; bash "${escReload}" || true ) &
+            ( SAT=$(magick "${escThumb}" -resize 1x1^ -format "%[fx:saturation]" info:- 2>/dev/null); LUMA=$(magick "${escThumb}" -resize 1x1^ -colorspace Gray -format "%[fx:mean]" info:- 2>/dev/null); if awk "BEGIN{exit !($SAT < 0.12)}"; then TYPE_FLAG="-t scheme-monochrome"; else TYPE_FLAG=""; fi; echo "{\"isLight\": $(awk "BEGIN{print ($LUMA > 0.55) ? \"true\" : \"false\"}")}" > ~/.config/hypr/scripts/quickshell/wallpaper_luma.json; matugen image "${escThumb}" --source-color-index 0 $TYPE_FLAG || true; bash "${escReload}" || true ) &
         `;
         Quickshell.execDetached(["bash", "-c", fullScript]);
     }

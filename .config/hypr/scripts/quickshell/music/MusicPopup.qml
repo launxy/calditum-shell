@@ -136,6 +136,17 @@ Item {
     property real introEqHeader: 0
     property real introEqSliders: 0
     property real introPresets: 0
+    property bool eqExpanded: false
+
+    // --- Dynamic window height: shrink/grow the popup with the EQ collapse state ---
+    property var shellWindow: null
+    readonly property real targetMasterHeight: mainContentColumn.implicitHeight + root.s(20) * 2 + root.s(3) * 2
+    onTargetMasterHeightChanged: {
+        if (shellWindow) {
+            shellWindow.animH = targetMasterHeight;
+            shellWindow.targetH = targetMasterHeight;
+        }
+    }
 
     ParallelAnimation {
         running: true
@@ -442,6 +453,7 @@ Item {
                 anchors.fill: parent
                 maskEnabled: true
                 maskSource: maskRectOuter
+                opacity: 0.35
             }
         }
 
@@ -450,7 +462,7 @@ Item {
             id: innerBg
             anchors.fill: parent
             anchors.margins: root.s(3)
-            color: root.base
+            color: Qt.rgba(root.base.r, root.base.g, root.base.b, 0.35)
             radius: root.s(10)
 
             // FIX: This forces the entire background to render as a single hardware texture,
@@ -518,6 +530,7 @@ Item {
 
             // LAYER 2: UI Content
             ColumnLayout {
+                id: mainContentColumn
                 anchors.fill: parent
                 anchors.margins: root.s(20)
                 spacing: 0
@@ -546,7 +559,7 @@ Item {
 
                         Rectangle {
                             anchors.fill: parent
-                            radius: root.s(110)
+                            radius: root.s(28)
                             color: root.surface1
                             border.width: root.s(4)
                             border.color: root.musicData.status === "Playing" ? root.mauve : root.overlay0
@@ -558,7 +571,7 @@ Item {
                                 anchors.centerIn: parent
                                 width: parent.width + root.s(20)
                                 height: parent.height + root.s(20)
-                                radius: width / 2
+                                radius: root.s(28) + root.s(10)
                                 color: root.mauve
                                 opacity: root.musicData.status === "Playing" ? 0.5 : 0.0
                                 Behavior on opacity { NumberAnimation { duration: 500 } }
@@ -583,7 +596,7 @@ Item {
                                 Rectangle {
                                     id: maskRect
                                     anchors.fill: parent
-                                    radius: width / 2
+                                    radius: root.s(24)
                                     visible: false
                                     layer.enabled: true 
                                 }
@@ -599,24 +612,11 @@ Item {
                                 // NEW: Dimmed slightly by tinting with the primary mauve accent, as requested
                                 Rectangle {
                                     anchors.fill: parent
-                                    radius: width / 2
+                                    radius: root.s(24)
                                     color: Qt.rgba(root.mauve.r, root.mauve.g, root.mauve.b, 0.2)
                                     opacity: artImg.status === Image.Ready ? 1.0 : 0.0
                                     Behavior on opacity { NumberAnimation { duration: 800 } }
                                 }
-
-                                Rectangle {
-                                    width: root.s(40); height: root.s(40)
-                                    radius: root.s(20); color: "#000000"
-                                    opacity: 0.8; anchors.centerIn: parent
-                                }
-                            }
-                            
-                            NumberAnimation on rotation {
-                                from: 0; to: 360; duration: 8000
-                                loops: Animation.Infinite
-                                running: true
-                                paused: root.musicData.status !== "Playing"
                             }
                         }
                     }
@@ -1024,7 +1024,52 @@ Item {
                             }
                         }
                         Text { text: root.eqData.preset || "Flat"; color: root.subtext0; font.family: "Liberation Sans"; font.pixelSize: root.s(14); font.bold: true; Layout.leftMargin: root.s(15) }
+
+                        // Expand/collapse toggle for the sliders + presets
+                        Rectangle {
+                            Layout.preferredWidth: root.s(28)
+                            Layout.preferredHeight: root.s(28)
+                            Layout.leftMargin: root.s(8)
+                            radius: root.s(9)
+                            color: eqToggleMa.containsMouse ? root.surface1 : "transparent"
+                            Behavior on color { ColorAnimation { duration: 200 } }
+
+                            Text {
+                                anchors.centerIn: parent
+                                text: "󰅀"
+                                font.family: "Iosevka Nerd Font"
+                                font.pixelSize: root.s(15)
+                                color: eqToggleMa.containsMouse ? root.text : root.subtext0
+                                rotation: root.eqExpanded ? 180 : 0
+                                Behavior on rotation { NumberAnimation { duration: 250; easing.type: Easing.OutCubic } }
+                            }
+
+                            MouseArea {
+                                id: eqToggleMa
+                                anchors.fill: parent
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: root.eqExpanded = !root.eqExpanded
+                            }
+                        }
                     }
+
+                    // Collapsible: hidden unless the user wants to tweak the EQ
+                    Item {
+                        id: eqCollapsible
+                        Layout.fillWidth: true
+                        clip: true
+
+                        property real revealProgress: root.eqExpanded ? 1.0 : 0.0
+                        Behavior on revealProgress { NumberAnimation { duration: 280; easing.type: Easing.OutCubic } }
+
+                        Layout.preferredHeight: eqContent.implicitHeight * revealProgress
+                        opacity: revealProgress
+
+                        ColumnLayout {
+                            id: eqContent
+                            width: parent.width
+                            spacing: root.s(15)
 
                     // Eq Sliders Container with Canvas Lightning Overlay
                     Item {
@@ -1430,6 +1475,8 @@ Item {
                             }
                         }
                     }
+                        } // eqContent
+                    } // eqCollapsible
                 }
             }
         }

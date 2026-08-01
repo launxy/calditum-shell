@@ -12,6 +12,7 @@ Variants {
     delegate: Component {
         PanelWindow {
             id: barWindow
+            WlrLayershell.namespace: "qs-bar"
             property bool pendingReload: false
             
 	    Caching { id: paths }
@@ -70,6 +71,10 @@ Variants {
             MatugenColors {
                 id: mocha
             }
+
+            // Adaptive text/icon color: near-black on light wallpapers, near-white on dark ones
+            readonly property color fgColor: mocha.isLight ? "#1a1a1a" : "#f2f2f2"
+            readonly property color fgColorDim: mocha.isLight ? Qt.rgba(0.1, 0.1, 0.1, 0.6) : Qt.rgba(0.95, 0.95, 0.95, 0.6)
 
             property bool showHelpIcon: true
             property bool isRecording: false
@@ -286,7 +291,7 @@ Variants {
             property color batDynamicColor: {
                 if (isCharging) return mocha.green;
                 if (batCap <= 20) return mocha.red;
-                return mocha.text; 
+                return barWindow.fgColor; 
             }
 
             Process {
@@ -586,7 +591,7 @@ Variants {
                     y: (parent.height - barWindow.barHeight) / 2
                     height: barWindow.barHeight
 
-                    color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.75)
+                    color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
                     radius: barWindow.s(14)
                     border.width: 1
                     border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, 0.08)
@@ -639,7 +644,7 @@ Variants {
                                 anchors.centerIn: parent
                                 text: "󰋗"
                                 font.family: "Iosevka Nerd Font"; font.pixelSize: barWindow.s(22)
-                                color: parent.isHovered ? mocha.teal : mocha.text
+                                color: parent.isHovered ? mocha.teal : barWindow.fgColor
                                 Behavior on color { ColorAnimation { duration: 200 } }
                                 scale: parent.isHovered ? 1.15 : 1.0
                                 Behavior on scale { NumberAnimation { duration: 250; easing.type: Easing.OutExpo } }
@@ -664,7 +669,7 @@ Variants {
                                 anchors.centerIn: parent
                                 text: "󰍉"
                                 font.family: "Iosevka Nerd Font"; font.pixelSize: barWindow.s(22)
-                                color: parent.isHovered ? mocha.blue : mocha.text
+                                color: parent.isHovered ? mocha.blue : barWindow.fgColor
                                 Behavior on color { ColorAnimation { duration: 200 } }
                                 scale: parent.isHovered ? 1.15 : 1.0
                                 Behavior on scale { NumberAnimation { duration: 250; easing.type: Easing.OutExpo } }
@@ -718,7 +723,7 @@ Variants {
                                 anchors.centerIn: parent
                                 text: "󰚰"
                                 font.family: "Iosevka Nerd Font"; font.pixelSize: barWindow.s(22)
-                                color: parent.isHovered ? mocha.text : mocha.green
+                                color: parent.isHovered ? barWindow.fgColor : mocha.green
                                 Behavior on color { ColorAnimation { duration: 200 } }
                                 
                                 rotation: parent.isHovered ? 360 : 0
@@ -749,7 +754,7 @@ Variants {
                 
                 Rectangle {
                     id: workspacesBox
-                    color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.75)
+                    color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
                     radius: barWindow.s(14); border.width: 1; border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, 0.05)
                     height: barWindow.barHeight
                     y: (parent.height - barWindow.barHeight) / 2
@@ -866,7 +871,7 @@ Variants {
                                     font.pixelSize: barWindow.s(14)
                                     font.weight: stateLabel === "active" ? Font.Black : (stateLabel === "occupied" ? Font.Bold : Font.Medium)
                                     
-                                    color: index === workspacesModel.activeIndex ? mocha.crust : (isHovered ? mocha.text : (stateLabel === "occupied" ? mocha.text : mocha.overlay0))
+                                    color: index === workspacesModel.activeIndex ? mocha.crust : (isHovered ? barWindow.fgColor : (stateLabel === "occupied" ? barWindow.fgColor : mocha.overlay0))
                                     
                                     Behavior on color { ColorAnimation { duration: 250 } }
                                 }
@@ -883,7 +888,7 @@ Variants {
 
                 Rectangle {
                     id: mediaBox
-                    color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.75)
+                    color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
                     radius: barWindow.s(14); border.width: 1; border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, 0.05)
                     y: (parent.height - barWindow.barHeight) / 2
                     height: barWindow.barHeight
@@ -963,7 +968,7 @@ Variants {
                                             font.family: "Liberation Sans"; 
                                             font.weight: Font.Black; 
                                             font.pixelSize: barWindow.s(13); 
-                                            color: mocha.text;
+                                            color: barWindow.fgColor;
                                             width: parent.width
                                             elide: Text.ElideRight; 
                                         }
@@ -988,7 +993,7 @@ Variants {
                                     anchors.verticalCenter: parent.verticalCenter
                                     Text { 
                                         anchors.centerIn: parent; text: "󰒮"; font.family: "Iosevka Nerd Font"; font.pixelSize: barWindow.s(26); 
-                                        color: prevMouse.containsMouse ? mocha.text : mocha.overlay2; 
+                                        color: prevMouse.containsMouse ? barWindow.fgColor : mocha.overlay2; 
                                         Behavior on color { ColorAnimation { duration: 150 } }
                                         scale: prevMouse.containsMouse ? 1.1 : 1.0
                                         Behavior on scale { NumberAnimation { duration: 200; easing.type: Easing.OutBack } }
@@ -1000,7 +1005,7 @@ Variants {
                                     anchors.verticalCenter: parent.verticalCenter
                                     Text { 
                                         anchors.centerIn: parent; text: barWindow.musicData.status === "Playing" ? "󰏤" : "󰐊"; font.family: "Iosevka Nerd Font"; font.pixelSize: barWindow.s(30); 
-                                        color: playMouse.containsMouse ? mocha.green : mocha.text; 
+                                        color: playMouse.containsMouse ? mocha.green : barWindow.fgColor; 
                                         Behavior on color { ColorAnimation { duration: 150 } }
                                         scale: playMouse.containsMouse ? 1.15 : 1.0
                                         Behavior on scale { NumberAnimation { duration: 200; easing.type: Easing.OutBack } }
@@ -1012,7 +1017,7 @@ Variants {
                                     anchors.verticalCenter: parent.verticalCenter
                                     Text { 
                                         anchors.centerIn: parent; text: "󰒭"; font.family: "Iosevka Nerd Font"; font.pixelSize: barWindow.s(26); 
-                                        color: nextMouse.containsMouse ? mocha.text : mocha.overlay2; 
+                                        color: nextMouse.containsMouse ? barWindow.fgColor : mocha.overlay2; 
                                         Behavior on color { ColorAnimation { duration: 150 } }
                                         scale: nextMouse.containsMouse ? 1.1 : 1.0
                                         Behavior on scale { NumberAnimation { duration: 200; easing.type: Easing.OutBack } }
@@ -1027,7 +1032,7 @@ Variants {
                 Rectangle {
                     id: centerBox
                     property bool isHovered: centerMouse.containsMouse
-                    color: isHovered ? Qt.rgba(mocha.surface1.r, mocha.surface1.g, mocha.surface1.b, 0.95) : Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.75)
+                    color: isHovered ? Qt.rgba(mocha.surface1.r, mocha.surface1.g, mocha.surface1.b, 0.55) : Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
                     radius: barWindow.s(14); border.width: 1; border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, isHovered ? 0.15 : 0.05)
                     
                     y: (parent.height - barWindow.barHeight) / 2
@@ -1107,7 +1112,7 @@ Variants {
                         radius: barWindow.s(14)
                         border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, 0.08)
                         border.width: 1
-                        color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.75)
+                        color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
                         
                         property real targetWidth: trayRepeater.count > 0 ? trayLayout.width + barWindow.s(24) : 0
                         width: targetWidth
@@ -1207,7 +1212,7 @@ Variants {
                         radius: barWindow.s(14)
                         border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, 0.08)
                         border.width: 1
-                        color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.75)
+                        color: Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
                         clip: true
                         
                         width: sysLayout.implicitWidth + barWindow.s(20)
@@ -1246,8 +1251,8 @@ Variants {
                                     anchors.left: parent.left
                                     anchors.leftMargin: barWindow.s(12)
                                     spacing: barWindow.s(8)
-                                    Text { anchors.verticalCenter: parent.verticalCenter; text: "󰌌"; font.family: "Iosevka Nerd Font"; font.pixelSize: barWindow.s(16); color: kbdPill.isHovered ? mocha.text : mocha.overlay2 }
-                                    Text { anchors.verticalCenter: parent.verticalCenter; text: ""; font.family: "Liberation Sans"; font.pixelSize: barWindow.s(13); font.weight: Font.Black; color: mocha.text }
+                                    Text { anchors.verticalCenter: parent.verticalCenter; text: "󰌌"; font.family: "Iosevka Nerd Font"; font.pixelSize: barWindow.s(16); color: kbdPill.isHovered ? barWindow.fgColor : mocha.overlay2 }
+                                    Text { anchors.verticalCenter: parent.verticalCenter; text: ""; font.family: "Liberation Sans"; font.pixelSize: barWindow.s(13); font.weight: Font.Black; color: barWindow.fgColor }
                                 }
                                 MouseArea {
                                     id: kbdMouse
@@ -1350,7 +1355,7 @@ Variants {
                                         text: barWindow.btDevice
                                         visible: text !== ""; 
                                         font.family: "Liberation Sans"; font.pixelSize: barWindow.s(13); font.weight: Font.Black; 
-                                        color: barWindow.isBtOn ? mocha.base : mocha.text; 
+                                        color: barWindow.isBtOn ? mocha.base : barWindow.fgColor; 
                                         width: Math.min(implicitWidth, barWindow.s(100)); elide: Text.ElideRight 
                                     }
                                 }
@@ -1401,7 +1406,7 @@ Variants {
                                         anchors.verticalCenter: parent.verticalCenter
                                         text: barWindow.volPercent; 
                                         font.family: "Liberation Sans"; font.pixelSize: barWindow.s(13); font.weight: Font.Black; 
-                                        color: barWindow.isSoundActive ? mocha.base : mocha.text; 
+                                        color: barWindow.isSoundActive ? mocha.base : barWindow.fgColor; 
                                     }
                                 }
                                 MouseArea { id: volMouse; hoverEnabled: true; anchors.fill: parent; onClicked: Quickshell.execDetached(["bash", "-c", "~/.config/hypr/scripts/qs_manager.sh toggle volume"]) }
@@ -1463,7 +1468,7 @@ Variants {
                         id: recButton
                         property bool isHovered: recMouse.containsMouse
                         
-                        color: isHovered ? Qt.rgba(mocha.surface1.r, mocha.surface1.g, mocha.surface1.b, 0.95) : Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.75)
+                        color: isHovered ? Qt.rgba(mocha.surface1.r, mocha.surface1.g, mocha.surface1.b, 0.55) : Qt.rgba(mocha.base.r, mocha.base.g, mocha.base.b, 0.35)
                         radius: barWindow.s(14)
                         border.width: 1
                         border.color: Qt.rgba(mocha.text.r, mocha.text.g, mocha.text.b, isHovered ? 0.15 : 0.05)

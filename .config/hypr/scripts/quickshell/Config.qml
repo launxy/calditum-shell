@@ -86,6 +86,7 @@ Item {
     property bool topbarHelpIcon: true
     property bool idleLockEnabled: true
     property bool idleSuspendEnabled: true
+    property bool blurEnabled: true
     property int workspaceCount: 8
     property int initialWorkspaceCount: 8
     property string wallpaperDir: Quickshell.env("WALLPAPER_DIR") || (homeDir + "/Pictures/Wallpapers")
@@ -113,6 +114,7 @@ Item {
             "topbarHelpIcon": config.topbarHelpIcon,
             "idleLockEnabled": config.idleLockEnabled,
             "idleSuspendEnabled": config.idleSuspendEnabled,
+            "blurEnabled": config.blurEnabled,
             "wallpaperDir": config.wallpaperDir,
             "language": config.language,
             "kbOptions": config.kbOptions,
@@ -379,6 +381,7 @@ Item {
                         if (config.rawSettings.topbarHelpIcon !== undefined) config.topbarHelpIcon = config.rawSettings.topbarHelpIcon;
                         if (config.rawSettings.idleLockEnabled !== undefined) config.idleLockEnabled = config.rawSettings.idleLockEnabled;
                         if (config.rawSettings.idleSuspendEnabled !== undefined) config.idleSuspendEnabled = config.rawSettings.idleSuspendEnabled;
+                        if (config.rawSettings.blurEnabled !== undefined) config.blurEnabled = config.rawSettings.blurEnabled;
                         if (config.rawSettings.wallpaperDir !== undefined) config.wallpaperDir = config.rawSettings.wallpaperDir;
                         if (config.rawSettings.language !== undefined && config.rawSettings.language !== "") config.language = config.rawSettings.language;
                         if (config.rawSettings.kbOptions !== undefined) config.kbOptions = config.rawSettings.kbOptions;

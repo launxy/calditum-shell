@@ -894,6 +894,7 @@ Item {
         { tab: 0, boxIndex: 6, label: "Workspaces",        desc: "Static count in topbar", icon: "󰽿", color: "red" },
         { tab: 0, boxIndex: 7, label: "System font",       desc: "Font used across Quickshell", icon: "Aa", color: "yellow" },
         { tab: 0, boxIndex: 8, label: "Power",              desc: "Lock screen / suspend on idle", icon: "󰐥", color: "yellow" },
+        { tab: 0, boxIndex: 9, label: "Blur",               desc: "Blur effect on bar and popups", icon: "󰈊", color: "sapphire" },
         { tab: 1, boxIndex: 1, label: "API Key",           desc: "OpenWeather API key",    icon: "󰌆", color: "blue" },
         { tab: 1, boxIndex: 2, label: "City ID",           desc: "OpenWeather city ID",    icon: "󰖐", color: "blue" },
         { tab: 1, boxIndex: 3, label: "Temperature Unit",  desc: "Celsius / Fahrenheit / K", icon: "󰔄", color: "blue" }
@@ -1378,6 +1379,79 @@ Item {
                                         Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
                                     }
                                     MouseArea { id: toggleSuspendMa; anchors.fill: parent; hoverEnabled: true; onClicked: Config.idleSuspendEnabled = !Config.idleSuspendEnabled; cursorShape: Qt.PointingHandCursor }
+                                }
+                            }
+                        }
+                    }
+
+                    // ── Box 9: Blur ───────────────────────────────────────────
+                    Rectangle {
+                        id: box9
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: blurCol.implicitHeight + root.s(28)
+                        radius: root.s(12)
+
+                        property bool isActive: root.highlightedBox === 9
+                        color: isActive ? root.sapphire : root.surface0
+                        border.color: isActive ? root.sapphire : root.surface1
+                        border.width: 1
+                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+
+                        MouseArea { anchors.fill: parent; onClicked: root.highlightedBox = 9; z: -1 }
+
+                        ColumnLayout {
+                            id: blurCol
+                            anchors.top: parent.top
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.margins: root.s(16)
+                            spacing: root.s(14)
+
+                            RowLayout {
+                                Layout.fillWidth: true
+                                spacing: root.s(14)
+                                Item {
+                                    Layout.preferredWidth: root.s(22)
+                                    Layout.alignment: Qt.AlignVCenter
+                                    Text {
+                                        anchors.centerIn: parent; text: "󰈊"
+                                        font.family: "Iosevka Nerd Font"; font.pixelSize: root.s(18)
+                                        color: box9.isActive ? root.base : root.sapphire
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                }
+                                ColumnLayout {
+                                    Layout.fillWidth: true; Layout.alignment: Qt.AlignVCenter; spacing: root.s(3)
+                                    Text {
+                                        text: "Blur"; font.family: "Inter"; font.weight: Font.Medium; font.pixelSize: root.s(14)
+                                        color: box9.isActive ? root.base : root.text; Layout.fillWidth: true
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                    Text {
+                                        text: "Blur effect on bar and popups"; font.family: "Inter"; font.pixelSize: root.s(11)
+                                        color: box9.isActive ? Qt.alpha(root.base, 0.75) : Qt.alpha(root.subtext0, 0.7); Layout.fillWidth: true
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                }
+                                Rectangle {
+                                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                                    Layout.preferredWidth: root.s(40); Layout.preferredHeight: root.s(22); radius: root.s(11)
+                                    scale: toggleBlurMa.containsMouse ? 1.05 : 1.0
+                                    Behavior on scale { NumberAnimation { duration: 150; easing.type: Easing.OutBack } }
+                                    color: Config.blurEnabled
+                                        ? (box9.isActive ? root.base : root.sapphire)
+                                        : Qt.alpha(root.surface2, box9.isActive ? 0.4 : 1.0)
+                                    Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    Rectangle {
+                                        width: root.s(16); height: root.s(16); radius: root.s(8)
+                                        color: Config.blurEnabled
+                                            ? (box9.isActive ? root.sapphire : root.base)
+                                            : (box9.isActive ? root.sapphire : root.surface0)
+                                        y: root.s(3); x: Config.blurEnabled ? root.s(21) : root.s(3)
+                                        Behavior on x { NumberAnimation { duration: 250; easing.type: Easing.OutBack } }
+                                        Behavior on color { ColorAnimation { duration: 220; easing.type: Easing.OutExpo } }
+                                    }
+                                    MouseArea { id: toggleBlurMa; anchors.fill: parent; hoverEnabled: true; onClicked: Config.blurEnabled = !Config.blurEnabled; cursorShape: Qt.PointingHandCursor }
                                 }
                             }
                         }

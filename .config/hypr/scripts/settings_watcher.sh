@@ -44,6 +44,7 @@ compile_settings() {
         fi
     fi
     WP_DIR=$(jq -r '.wallpaperDir // empty' "$SETTINGS_FILE")
+    BLUR_ENABLED=$(jq -r 'if has("blurEnabled") then .blurEnabled else true end' "$SETTINGS_FILE")
 
     # Safely parse booleans so "false" doesn't trigger a fallback
     GUIDE_STARTUP=$(jq -r 'if has("openGuideAtStartup") then .openGuideAtStartup else true end' "$SETTINGS_FILE")
@@ -81,6 +82,7 @@ compile_settings() {
     echo "Regenerating settings.conf..."
     sed -e "s|{{KB_LAYOUT}}|$LANG|g" \
         -e "s|{{KB_OPTIONS}}|$KB_OPT|g" \
+        -e "s|{{BLUR_ENABLED}}|$BLUR_ENABLED|g" \
         "$TMPL_DIR/settings.conf.template" > "$SETTINGS_CONF"
 
     # 3. Regenerate autostart.conf

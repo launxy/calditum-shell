@@ -18,7 +18,7 @@ decoration {
     active_opacity = 1.0
     inactive_opacity = 1.0
     blur {
-        enabled = true
+        enabled = {{BLUR_ENABLED}}
         size = 8
         passes = 2
         new_optimizations = true

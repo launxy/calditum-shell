@@ -30,6 +30,25 @@ Item {
     property color teal: "#94e2d5"
 
     property string rawJson: ""
+    property bool isLight: false
+    property string rawLumaJson: ""
+
+    Process {
+        id: lumaReader
+	command: ["cat", Quickshell.env("HOME") + "/.config/hypr/scripts/quickshell/wallpaper_luma.json"]
+	stdout: StdioCollector {
+            onStreamFinished: {
+                let txt = this.text.trim();
+                if (txt !== "" && txt !== root.rawLumaJson) {
+                    root.rawLumaJson = txt;
+                    try {
+                        let l = JSON.parse(txt);
+                        if (l.isLight !== undefined) root.isLight = l.isLight;
+                    } catch(e) {}
+                }
+            }
+        }
+    }
 
     Process {
         id: themeReader
@@ -74,6 +93,9 @@ Item {
         running: true
         repeat: true
         triggeredOnStart: true
-        onTriggered: themeReader.running = true
+        onTriggered: {
+            themeReader.running = true;
+            lumaReader.running = true;
+        }
     }
 }

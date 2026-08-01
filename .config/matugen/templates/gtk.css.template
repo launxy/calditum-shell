@@ -1,24 +1,24 @@
 /* Core Colors & Text */
 @define-color theme_bg_color {{colors.surface.default.hex}};
 @define-color theme_fg_color {{colors.on_surface.default.hex}};
-@define-color window_bg_color {{colors.surface.default.hex}};
+@define-color window_bg_color alpha({{colors.surface.default.hex}}, 0.72);
 @define-color window_fg_color {{colors.on_surface.default.hex}};
 
 /* Views and Inputs (Main content areas) */
-@define-color view_bg_color {{colors.surface_container_lowest.default.hex}};
+@define-color view_bg_color alpha({{colors.surface_container_lowest.default.hex}}, 0.6);
 @define-color view_fg_color {{colors.on_surface.default.hex}};
 
 /* Sidebars (Nautilus, Settings, etc.) */
-@define-color sidebar_bg_color {{colors.surface_container_low.default.hex}};
+@define-color sidebar_bg_color alpha({{colors.surface_container_low.default.hex}}, 0.65);
 @define-color sidebar_fg_color {{colors.on_surface_variant.default.hex}};
-@define-color sidebar_backdrop_color {{colors.surface_container_low.default.hex}};
+@define-color sidebar_backdrop_color alpha({{colors.surface_container_low.default.hex}}, 0.55);
 
 /* Headerbars & Popovers (Portal Dialogs) */
-@define-color headerbar_bg_color {{colors.surface_container.default.hex}};
+@define-color headerbar_bg_color alpha({{colors.surface_container.default.hex}}, 0.75);
 @define-color headerbar_fg_color {{colors.on_surface.default.hex}};
-@define-color popover_bg_color {{colors.surface_container_high.default.hex}};
+@define-color popover_bg_color alpha({{colors.surface_container_high.default.hex}}, 0.85);
 @define-color popover_fg_color {{colors.on_surface.default.hex}};
-@define-color dialog_bg_color {{colors.surface_container_high.default.hex}};
+@define-color dialog_bg_color alpha({{colors.surface_container_high.default.hex}}, 0.85);
 @define-color dialog_fg_color {{colors.on_surface.default.hex}};
 
 /* Accents & Buttons */
@@ -30,6 +30,6 @@
 @define-color destructive_fg_color {{colors.on_error.default.hex}};
 
 /* Cards */
-@define-color card_bg_color {{colors.surface_container_highest.default.hex}};
+@define-color card_bg_color alpha({{colors.surface_container_highest.default.hex}}, 0.8);
 @define-color card_fg_color {{colors.on_surface.default.hex}};
 

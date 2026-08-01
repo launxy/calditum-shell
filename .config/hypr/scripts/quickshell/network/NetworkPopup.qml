@@ -841,7 +841,7 @@ Item {
         Rectangle {
             anchors.fill: parent
             radius: window.s(20)
-            color: window.base
+            color: Qt.rgba(window.base.r, window.base.g, window.base.b, 0.35)
             border.color: window.surface0
             border.width: 1
             clip: true

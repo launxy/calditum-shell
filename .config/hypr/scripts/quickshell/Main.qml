@@ -476,6 +476,7 @@ PanelWindow {
         props["liveNotifs"]   = masterWindow.liveNotifs;
         props["layoutWidth"]  = t.w;
         props["layoutHeight"] = t.h;
+        props["shellWindow"]  = masterWindow;
         if (newWidget === "wallpaper") props["widgetArg"] = arg;
 
         let cached = widgetCache[newWidget];
