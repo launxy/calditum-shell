@@ -27,6 +27,9 @@ More updates and improvements are on the way, so stay tuned.
   <img src="previews/screenshot1.png" width="30%"/>
   <img src="previews/screenshot2.png" width="30%"/>
   <img src="previews/screenshot3.png" width="30%"/>
+  <img src="previews/screenshot4.png" width="30%"/>
+  <img src="previews/screenshot5.png" width="30%"/>
+  <img src="previews/screenshot6.png" width="30%"/>
 </p>
 
 ---
