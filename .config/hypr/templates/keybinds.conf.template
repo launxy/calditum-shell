@@ -7,4 +7,4 @@ gesture = 3, horizontal, workspace
 bindm = SUPER, mouse:272, movewindow
 bindm = SUPER, mouse:273, resizewindow
 
-# ───────── Dynamic Settings Binds ─────────
+# ───────── Dynamic Settings Binds q

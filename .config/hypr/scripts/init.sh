@@ -5,8 +5,30 @@ qs_ensure_cache "wallpaper_picker"
 
 FLAG="$QS_STATE_WALLPAPER_PICKER/wallpaper_initialized"
 CACHE_IMG="$QS_CACHE_WALLPAPER_PICKER/current_wallpaper.png"
+COLOR_OVERRIDE="$HOME/.config/hypr/color_override.json"
 
 RELOAD_SCRIPT_PATH="$(dirname "${BASH_SOURCE[0]}")/quickshell/wallpaper/matugen_reload.sh"
+
+# If a manual color override is active, re-apply THAT instead of the
+# wallpaper's colors — it stays in effect until the user picks another
+# color, or explicitly changes the wallpaper (which clears this file).
+if [ -f "$COLOR_OVERRIDE" ] && command -v jq >/dev/null; then
+    IS_ACTIVE=$(jq -r '.active // false' "$COLOR_OVERRIDE")
+    if [ "$IS_ACTIVE" = "true" ]; then
+        HEX=$(jq -r '.hex' "$COLOR_OVERRIDE")
+        SCHEME=$(jq -r '.scheme' "$COLOR_OVERRIDE")
+        matugen color hex "$HEX" -t "$SCHEME"
+
+        if [ -f "$RELOAD_SCRIPT_PATH" ]; then
+            chmod +x "$RELOAD_SCRIPT_PATH"
+            bash "$RELOAD_SCRIPT_PATH"
+        fi
+
+        mkdir -p "$(dirname "$FLAG")"
+        touch "$FLAG"
+        exit 0
+    fi
+fi
 
 # If the flag exists, just run matugen and the reload script, then exit
 if [ -f "$FLAG" ]; then
